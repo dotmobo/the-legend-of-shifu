@@ -73,14 +73,6 @@ function updateEnemies(world, layer, enemies)
         for index, enemy in ipairs(enemies) do
             print("ENEMY " .. index)
             if not self.enemies[index].removed then
-                -- remove the enemy from bump when he is deadd
-                if self.enemies[index].dead then
-                    print("dead " .. index)
-                    world:remove(self.enemies[index])
-                    table.remove(enemies, index)
-                    self.enemies[index].removed = true
-                end
-
                 -- default animation
                 self.enemies[index].move = self.enemies[index].moves.run
 
@@ -97,6 +89,14 @@ function updateEnemies(world, layer, enemies)
 
                 -- On met à jour l'animation du joueur
                 self.enemies[index].animation:update(dt)
+
+                -- remove the enemy from bump when he is deadd
+                if self.enemies[index].dead then
+                    print("dead " .. index)
+                    world:remove(self.enemies[index])
+                    self.enemies[index].removed = true
+                    -- table.remove(enemies, index)
+                end
             end
         end
     end
@@ -105,7 +105,7 @@ end
 function drawEnemies(layer, enemies)
     layer.draw = function(self)
         for index, enemy in ipairs(enemies) do
-            if not self.enemies[index].dead then
+            if not self.enemies[index].removed then
                 -- enemy's animation
                 self.enemies[index].animation:draw(self.enemies[index].sprite, math.floor(self.enemies[index].x), math.floor(self.enemies[index].y))
 
