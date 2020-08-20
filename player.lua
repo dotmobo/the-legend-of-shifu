@@ -74,31 +74,64 @@ function addControlsToPlayer(world, layer)
 		end
 	end
 
+	local createBullet = function(bullets, move)
+		local bullet = {}
+		bullet.width = BULLET_WIDTH
+		bullet.height = BULLET_HEIGHT
+		bullet.moves = {
+			stop = "stop",
+			up = "up",
+			down = "down",
+			left = "left",
+			right = "right"
+		}
+		if move == "up" then
+			bullet.move = bullet.moves.up
+			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
+			bullet.y = playerLayer.player.y - bullet.height
+		elseif move == "down" then
+			bullet.move = bullet.moves.down
+			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
+			bullet.y = playerLayer.player.y + playerLayer.player.height
+		elseif move == "left" then
+			bullet.move = bullet.moves.left
+			bullet.x = playerLayer.player.x - bullet.width
+			bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+		elseif move == "right" then
+			bullet.move = bullet.moves.right
+			bullet.x = playerLayer.player.x + playerLayer.player.width
+			bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+		end
+		world:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
+		table.insert(bullets, bullet)
+		return bullet
+	end
+
 	currentShootTimer = 0
 	layer.update = function(self, dt)
+		-- default animation
+		layer.player.move = layer.player.moves.stop
 		-- Move player up
-		if love.keyboard.isDown("up") then
+		if love.keyboard.isDown("up") or (joystick and joystick:isGamepadDown('dpup')) then
 			layer.player.move = layer.player.moves.up
 			movePlayer(self.player, self.player.x, self.player.y - self.player.speed * dt)
 		end
 		-- Move player down
-		if love.keyboard.isDown("down") then
+		if love.keyboard.isDown("down") or (joystick and joystick:isGamepadDown('dpdown')) then
 			layer.player.move = layer.player.moves.down
 			movePlayer(self.player, self.player.x, self.player.y + self.player.speed * dt)
 		end
 		-- Move player left
-		if love.keyboard.isDown("left") then
+		if love.keyboard.isDown("left") or (joystick and joystick:isGamepadDown('dpleft')) then
 			layer.player.move = layer.player.moves.left
 			movePlayer(self.player, self.player.x - self.player.speed * dt, self.player.y)
 		end
 		-- Move player right
-		if love.keyboard.isDown("right") then
+		if love.keyboard.isDown("right") or (joystick and joystick:isGamepadDown('dpright')) then
 			layer.player.move = layer.player.moves.right
 			movePlayer(self.player, self.player.x + self.player.speed * dt, self.player.y)
 		end
-		if not love.keyboard.isDown("up", "down", "left", "right") then
-			layer.player.move = layer.player.moves.stop
-		end
+
 		-- animation
 		if layer.player.move ~= layer.player.moves.stop then
 			-- move animation
@@ -112,39 +145,20 @@ function addControlsToPlayer(world, layer)
 
 		-- add bullet
 		currentShootTimer = currentShootTimer + dt
-		if love.keyboard.isDown("z", "w", "a", "q", "s", "d") and currentShootTimer > BULLET_TIMER then
-			local bullet = {}
-			bullet.width = BULLET_WIDTH
-			bullet.height = BULLET_HEIGHT
-			bullet.moves = {
-				stop = "stop",
-				up = "up",
-				down = "down",
-				left = "left",
-				right = "right"
-			}
-
-			if love.keyboard.isDown("z", "w") then
-				bullet.move = bullet.moves.up
-				bullet.x = playerLayer.player.x + playerLayer.player.width / 2
-				bullet.y = playerLayer.player.y - bullet.height
-			elseif love.keyboard.isDown("s") then
-				bullet.move = bullet.moves.down
-				bullet.x = playerLayer.player.x + playerLayer.player.width / 2
-				bullet.y = playerLayer.player.y + playerLayer.player.height
-			elseif love.keyboard.isDown("a", "q") then
-				bullet.move = bullet.moves.left
-				bullet.x = playerLayer.player.x - bullet.width
-				bullet.y = playerLayer.player.y + playerLayer.player.height / 2
-			elseif love.keyboard.isDown("d") then
-				bullet.move = bullet.moves.right
-				bullet.x = playerLayer.player.x + playerLayer.player.width
-				bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+		if currentShootTimer > BULLET_TIMER then
+			if love.keyboard.isDown("z", "w") or (joystick and joystick:isGamepadDown('y')) then
+				local bullet = createBullet(self.player.bullets, "up")
+				currentShootTimer = 0
+			elseif love.keyboard.isDown("s") or (joystick and joystick:isGamepadDown('a')) then
+				local bullet = createBullet(self.player.bullets, "down")
+				currentShootTimer = 0
+			elseif love.keyboard.isDown("a", "q") or (joystick and joystick:isGamepadDown('x')) then
+				local bullet = createBullet(self.player.bullets, "left")
+				currentShootTimer = 0
+			elseif love.keyboard.isDown("d") or (joystick and joystick:isGamepadDown('b')) then
+				local bullet = createBullet(self.player.bullets, "right")
+				currentShootTimer = 0
 			end
-
-			world:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
-			table.insert(self.player.bullets, bullet)
-			currentShootTimer = 0
 		end
 		-- move bullet
 		for index, bullet in ipairs(self.player.bullets) do

@@ -9,6 +9,10 @@ anim8 = require("libs/anim8")
 local bullet_img = love.graphics.newImage(PATH_PEE)
 
 function love.load()
+	local joysticks = love.joystick.getJoysticks()
+    joystick = joysticks[1]
+
+
 	world = bump.newWorld()
 	map = sti(PATH_LEVEL1, {COLLISION_MODE})
 	map:bump_init(world)
