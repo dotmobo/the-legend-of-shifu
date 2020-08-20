@@ -34,10 +34,18 @@ function createPlayerInLayer(world, layer, player)
 		speed = PLAYER_SPEED,
 		bullets = {},
 		bulletSprite = bulletSprite,
+		moves = {
+			stop = "stop",
+			up = "up",
+			down = "down",
+			left = "left",
+			right = "right"
+		}
 		-- ox     = sprite:getWidth() / 2,
 		-- oy     = sprite:getHeight() / 1.10
 	}
 	layer.player.animation = layer.player.animations.stop
+	layer.player.move = layer.player.moves.stop
 	world:add(layer.player, layer.player.x, layer.player.y, layer.player.width, layer.player.height)
 end
 
@@ -69,23 +77,30 @@ function addControlsToPlayer(world, layer)
 	currentShootTimer = 0
 	layer.update = function(self, dt)
 		-- Move player up
-		if love.keyboard.isDown("w", "up") then
+		if love.keyboard.isDown("up") then
+			layer.player.move = layer.player.moves.up
 			movePlayer(self.player, self.player.x, self.player.y - self.player.speed * dt)
 		end
 		-- Move player down
-		if love.keyboard.isDown("s", "down") then
+		if love.keyboard.isDown("down") then
+			layer.player.move = layer.player.moves.down
 			movePlayer(self.player, self.player.x, self.player.y + self.player.speed * dt)
 		end
 		-- Move player left
-		if love.keyboard.isDown("a", "left") then
+		if love.keyboard.isDown("left") then
+			layer.player.move = layer.player.moves.left
 			movePlayer(self.player, self.player.x - self.player.speed * dt, self.player.y)
 		end
 		-- Move player right
-		if love.keyboard.isDown("d", "right") then
+		if love.keyboard.isDown("right") then
+			layer.player.move = layer.player.moves.right
 			movePlayer(self.player, self.player.x + self.player.speed * dt, self.player.y)
 		end
+		if not love.keyboard.isDown("up", "down", "left", "right") then
+			layer.player.move = layer.player.moves.stop
+		end
 		-- animation
-		if love.keyboard.isDown("w", "up", "s", "down", "a", "left", "d", "right") then
+		if layer.player.move ~= layer.player.moves.stop then
 			-- move animation
 			self.player.animation = self.player.animations.move
 		else
@@ -97,19 +112,51 @@ function addControlsToPlayer(world, layer)
 
 		-- add bullet
 		currentShootTimer = currentShootTimer + dt
-		if love.keyboard.isDown("space") and currentShootTimer > BULLET_TIMER then
+		if love.keyboard.isDown("z", "w", "a", "q", "s", "d") and currentShootTimer > BULLET_TIMER then
 			local bullet = {}
 			bullet.width = BULLET_WIDTH
 			bullet.height = BULLET_HEIGHT
-			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
-			bullet.y = playerLayer.player.y - bullet.height
+			bullet.moves = {
+				stop = "stop",
+				up = "up",
+				down = "down",
+				left = "left",
+				right = "right"
+			}
+
+			if love.keyboard.isDown("z", "w") then
+				bullet.move = bullet.moves.up
+				bullet.x = playerLayer.player.x + playerLayer.player.width / 2
+				bullet.y = playerLayer.player.y - bullet.height
+			elseif love.keyboard.isDown("s") then
+				bullet.move = bullet.moves.down
+				bullet.x = playerLayer.player.x + playerLayer.player.width / 2
+				bullet.y = playerLayer.player.y + playerLayer.player.height
+			elseif love.keyboard.isDown("a", "q") then
+				bullet.move = bullet.moves.left
+				bullet.x = playerLayer.player.x - bullet.width
+				bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+			elseif love.keyboard.isDown("d") then
+				bullet.move = bullet.moves.right
+				bullet.x = playerLayer.player.x + playerLayer.player.width
+				bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+			end
+
 			world:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
 			table.insert(self.player.bullets, bullet)
 			currentShootTimer = 0
 		end
 		-- move bullet
 		for index, bullet in ipairs(self.player.bullets) do
-			moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y - BULLET_SPEED * dt)
+			if bullet.move == bullet.moves.down then
+				moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y + BULLET_SPEED * dt)
+			elseif bullet.move == bullet.moves.left then
+				moveBullet(self.player.bullets, index, bullet, bullet.x - BULLET_SPEED * dt, bullet.y)
+			elseif bullet.move == bullet.moves.right then
+				moveBullet(self.player.bullets, index, bullet, bullet.x + BULLET_SPEED * dt, bullet.y)
+			else
+				moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y - BULLET_SPEED * dt)
+			end
 		end
 	end
 end
@@ -121,7 +168,11 @@ function drawPlayer(layer)
 		self.player.animation:draw(self.player.sprite, math.floor(self.player.x), math.floor(self.player.y))
 		-- player's bullets
 		for _,bullet in ipairs(self.player.bullets) do
-			love.graphics.draw(self.player.bulletSprite, bullet.x,bullet.y)
+			if bullet.move == bullet.moves.left or bullet.move == bullet.moves.right then
+				love.graphics.draw(self.player.bulletSprite, bullet.x,bullet.y, math.rad(90))
+			else
+				love.graphics.draw(self.player.bulletSprite, bullet.x,bullet.y)
+			end
 		end
 		-- for debugging
 		love.graphics.setPointSize(5)
