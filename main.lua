@@ -7,8 +7,8 @@ bump = require('libs/bump')
 sti = require("libs/sti")
 anim8 = require("libs/anim8")
 
-local menu = {}
-local game = {}
+menu = {}
+game = {}
 
 function menu:draw()
 	love.graphics.printf({{255,255,255,1}, 'The Legend of Shifu'},0,WIN_HEIGHT/3,WIN_WIDTH,"center")
@@ -57,7 +57,7 @@ function love.load()
 	local joysticks = love.joystick.getJoysticks()
 	joystick = joysticks[1]
 	-- font
-    font = love.graphics.newFont(18)
+    font = love.graphics.newFont(FONT_SIZE)
     love.graphics.setFont(font)
 end
 
@@ -81,7 +81,8 @@ function game:draw()
 	if ENABLE_DEBUG then
 		map:bump_draw(world, tx, ty, SCALE, SCALE)
 	end
-	-- score
+	-- hud
 	love.graphics.print({{255,255,255,1}, 'score: '..math.floor(score)},0,0)
+	love.graphics.print({{255,255,255,1}, 'life: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-FONT_SIZE)
 end
 

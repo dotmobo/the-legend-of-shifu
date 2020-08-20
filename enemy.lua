@@ -62,14 +62,28 @@ function loadEnemies(world, layer, enemies)
 end
 
 function updateEnemies(world, layer, enemies)
+    local enemyFilter = function(item, other)
+		if other.life then
+			return "touch"
+		else
+			return "slide"
+		end
+    end
+
     local moveEnemy = function(enemy, goalX, goalY)
-		local actualX, actualY, cols, len = world:move(enemy, goalX, goalY)
+		local actualX, actualY, cols, len = world:move(enemy, goalX, goalY, enemyFilter)
 		enemy.x, enemy.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
             print('enemy collided with ' .. tostring(cols[i].type))
-            if cols[i].type == 'slide' then
+            if cols[i].type == 'slide' or cols[i].type == 'touch' then
                 enemy.directionX = enemy.directionX * -1
+            end
+            if cols[i].type == 'touch'then
+                cols[i].other.hitted = true
+				cols[i].other.hittedTime = 1
+                cols[i].other.life = cols[i].other.life - 1
+                cols[i].other.playerHitSound:play()
             end
 		end
     end

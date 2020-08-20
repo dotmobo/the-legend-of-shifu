@@ -25,6 +25,7 @@ function loadPlayer(world, layer, player)
 	local bulletSprite = love.graphics.newImage(PATH_PEE)
 	--load sound
 	local bulletSound = love.audio.newSource(PATH_BULLET_SOUND, "static")
+	local playerHitSound = love.audio.newSource(PATH_PLAYER_HIT_SOUND, "static")
 
     layer.player = {
 		sprite = sprite,
@@ -40,6 +41,10 @@ function loadPlayer(world, layer, player)
 		bullets = {},
 		bulletSprite = bulletSprite,
 		bulletSound = bulletSound,
+		life = 3,
+		playerHitSound = playerHitSound,
+		hitted = false,
+        hittedTime = 0,
 		moves = {
 			stop = "stop",
 			up = "up",
@@ -57,12 +62,23 @@ end
 
 function updatePlayer(world, layer)
 
+	local playerFilter = function(item, other)
+		if other.life then
+			return "touch"
+		else
+			return "slide"
+		end
+	end
+
 	local movePlayer = function(player, goalX, goalY)
-		local actualX, actualY, cols, len = world:move(player, goalX, goalY)
+		local actualX, actualY, cols, len = world:move(player, goalX, goalY, playerFilter)
 		player.x, player.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
 		  print('player collided with ' .. tostring(cols[i].type))
+		  --if cols[i].other.life then
+		  --	cols[i].item.life = cols[i].item.life - 1
+		  -- end
 		end
 	end
 
@@ -132,6 +148,16 @@ function updatePlayer(world, layer)
 
 	currentShootTimer = 0
 	layer.update = function(self, dt)
+		if self.player.life <=0 then
+			Gamestate.switch(menu)
+		end
+		-- hit
+		if self.player.hitted and self.player.hittedTime > 0 then
+			self.player.hittedTime = self.player.hittedTime - HITTED_SPEED*dt
+			if self.player.hittedTime <= 0 then
+				self.player.hitted = false
+			end
+		end
 		-- default animation
 		layer.player.move = layer.player.moves.stop
 		-- Move player up
@@ -201,6 +227,11 @@ end
 -- on dessine le joueur
 function drawPlayer(layer)
 	layer.draw = function(self)
+		if self.player.hitted then
+			love.graphics.setColor(208, 0, 0, 1)
+		else
+			love.graphics.setColor(255, 255, 255, 1)
+		end
 		-- player's animation
 		self.player.animation:draw(self.player.sprite, math.floor(self.player.x), math.floor(self.player.y))
 		-- player's bullets
@@ -215,6 +246,7 @@ function drawPlayer(layer)
 			love.graphics.setPointSize(5)
 			love.graphics.points(math.floor(self.player.x), math.floor(self.player.y))
 		end
+
 	end
 end
 
