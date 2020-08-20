@@ -188,9 +188,10 @@ function drawPlayer(layer)
 				love.graphics.draw(self.player.bulletSprite, bullet.x,bullet.y)
 			end
 		end
-		-- for debugging
-		love.graphics.setPointSize(5)
-		love.graphics.points(math.floor(self.player.x), math.floor(self.player.y))
+		if ENABLE_DEBUG then
+			love.graphics.setPointSize(5)
+			love.graphics.points(math.floor(self.player.x), math.floor(self.player.y))
+		end
 	end
 end
 

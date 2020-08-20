@@ -1,4 +1,4 @@
-ENABLE_CONSOLE = true
+ENABLE_DEBUG = false
 TITLE = "The Legend of Shifu"
 PATH_ICON = "assets/icon/icon.png"
 WIN_WIDTH = 800
