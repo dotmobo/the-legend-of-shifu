@@ -66,17 +66,30 @@ function updatePlayer(world, layer)
 		end
 	end
 
+	local bulletFilter = function(item, other)
+		return "touch"
+	end
+
 	local moveBullet = function(bullets, index, bullet, goalX, goalY)
-		local actualX, actualY, cols, len = world:move(bullet, goalX, goalY)
+		local actualX, actualY, cols, len = world:move(bullet, goalX, goalY, bulletFilter)
 		bullet.x, bullet.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
 			print('bullet collided with ' .. tostring(cols[i].type))
-			if cols[i].type=='slide' then
+			if cols[i].type=='touch' then
+				if cols[i].other.life then
+					print(cols[i].other.life)
+					cols[i].other.life = cols[i].other.life - 1
+				end
+			end
+
+			if cols[i].type=='slide' or cols[i].type=='touch' then
 				world:remove(bullet)
 				table.remove(bullets, index)
 				break
 			end
+
+
 		end
 	end
 
