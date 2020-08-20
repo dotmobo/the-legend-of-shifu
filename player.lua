@@ -79,6 +79,8 @@ function updatePlayer(world, layer)
 			if cols[i].type=='touch' then
 				if cols[i].other.life then
 					print(cols[i].other.life)
+					cols[i].other.hitted = true
+					cols[i].other.hittedTime = 1
 					cols[i].other.life = cols[i].other.life - 1
 					cols[i].other.enemyHitSound:play()
 				end

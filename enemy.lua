@@ -38,6 +38,8 @@ function loadEnemies(world, layer, enemies)
             speed = 50,
             directionX = 1,
             enemyHitSound = enemyHitSound,
+            hitted = false,
+            hittedTime = 0,
             moves = {
                 stop = "stop",
                 run = "run",
@@ -78,6 +80,13 @@ function updateEnemies(world, layer, enemies)
                 -- default animation
                 self.enemies[index].move = self.enemies[index].moves.run
 
+                if self.enemies[index].hitted and self.enemies[index].hittedTime > 0 then
+                    self.enemies[index].hittedTime = self.enemies[index].hittedTime - HITTED_SPEED*dt
+                    if self.enemies[index].hittedTime <= 0 then
+                        self.enemies[index].hitted = false
+                    end
+                end
+
                 -- die motherfucker !
                 if self.enemies[index].life <= 0 then
                     self.enemies[index].animation = self.enemies[index].animations.die
@@ -108,7 +117,12 @@ function drawEnemies(layer, enemies)
     layer.draw = function(self)
         for index, enemy in ipairs(enemies) do
             if not self.enemies[index].removed then
-                -- enemy's animation
+
+                if self.enemies[index].hitted then
+                    love.graphics.setColor(208, 0, 0, 1)
+                else
+                    love.graphics.setColor(255, 255, 255, 1)
+                end
                 self.enemies[index].animation:draw(self.enemies[index].sprite, math.floor(self.enemies[index].x), math.floor(self.enemies[index].y))
 
                 if ENABLE_DEBUG then
