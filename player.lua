@@ -1,6 +1,9 @@
--- ajout du calque pour le joueur
-function addPlayerLayer(map)
-    return map:addCustomLayer("sprites", 5)
+function initPlayer(map, world, playerLayer)
+	local spawn = getPlayerSpawn(map)
+	loadPlayer(world, playerLayer, spawn)
+	updatePlayer(world, playerLayer)
+	drawPlayer(playerLayer)
+	removeUnneededLayer()
 end
 
 -- récupère le spawn
@@ -16,7 +19,7 @@ function getPlayerSpawn(map)
 end
 
 -- creer le jouer dans le layer
-function createPlayerInLayer(world, layer, player)
+function loadPlayer(world, layer, player)
 	local sprite = love.graphics.newImage(PATH_SHIFU)
 	local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
 	local bulletSprite = love.graphics.newImage(PATH_PEE)
@@ -52,7 +55,7 @@ function createPlayerInLayer(world, layer, player)
 	world:add(layer.player, layer.player.x, layer.player.y, layer.player.width, layer.player.height)
 end
 
-function addControlsToPlayer(world, layer)
+function updatePlayer(world, layer)
 
 	local movePlayer = function(player, goalX, goalY)
 		local actualX, actualY, cols, len = world:move(player, goalX, goalY)

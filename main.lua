@@ -1,5 +1,6 @@
 require('player')
 require('utils')
+require('enemy')
 
 bump = require('libs/bump')
 sti = require("libs/sti")
@@ -14,13 +15,12 @@ function love.load()
 	world = bump.newWorld()
 	map = sti(PATH_LEVEL1, {COLLISION_MODE})
 	map:bump_init(world)
-	-- load player layer
-	playerLayer = addPlayerLayer(map)
-	local spawn = getPlayerSpawn(map)
-	createPlayerInLayer(world, playerLayer, spawn)
-	addControlsToPlayer(world, playerLayer)
-	drawPlayer(playerLayer)
-	removeUnneededLayer()
+	-- adds custom layers
+	playerLayer = map:addCustomLayer("sprites", 5)
+	enemiesLayer = map:addCustomLayer("enemies", 6)
+	-- init player and enemies
+	initPlayer(map, world, playerLayer)
+	initEnemies(map, world, enemiesLayer)
 end
 
 function love.update(dt)
