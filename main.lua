@@ -18,7 +18,10 @@ end
 function menu:keyreleased(key, code)
     if key == 'return' then
         Gamestate.switch(game)
-    end
+	end
+	if key == "escape" then
+	   love.event.quit()
+	end
 end
 
 function game:enter()
@@ -48,9 +51,9 @@ function love.load()
     love.graphics.setFont(font)
 end
 
-function game:keypressed(key, scancode, isrepeat)
+function game:keyreleased(key, code)
 	if key == "escape" then
-	   love.event.quit()
+		Gamestate.switch(menu)
 	end
 end
 
