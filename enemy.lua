@@ -76,7 +76,7 @@ function updateEnemies(world, layer, enemies)
 
     layer.update = function(self, dt)
         for index, enemy in ipairs(enemies) do
-            if not self.enemies[index].removed then
+            if self.enemies[index] and not self.enemies[index].removed then
                 -- default animation
                 self.enemies[index].move = self.enemies[index].moves.run
 
@@ -104,9 +104,11 @@ function updateEnemies(world, layer, enemies)
                 -- remove the enemy from bump when he is deadd
                 if self.enemies[index].dead then
                     print("dead " .. index)
+                    score = score + 1
                     world:remove(self.enemies[index])
                     self.enemies[index].removed = true
-                    -- table.remove(enemies, index)
+                    -- some bugs if i realy remove enemy, maybe clear it when level change
+                    -- table.remove(self.enemies, index)
                 end
             end
         end
@@ -116,7 +118,7 @@ end
 function drawEnemies(layer, enemies)
     layer.draw = function(self)
         for index, enemy in ipairs(enemies) do
-            if not self.enemies[index].removed then
+            if self.enemies[index] and not self.enemies[index].removed then
 
                 if self.enemies[index].hitted then
                     love.graphics.setColor(208, 0, 0, 1)
