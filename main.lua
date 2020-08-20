@@ -12,7 +12,8 @@ local game = {}
 
 function menu:draw()
 	love.graphics.printf({{255,255,255,1}, 'The Legend of Shifu'},0,WIN_HEIGHT/3,WIN_WIDTH,"center")
-    love.graphics.printf({{255,255,255,1}, "Press Enter to continue"},0,WIN_HEIGHT/3+32,WIN_WIDTH,"center")
+	love.graphics.printf({{255,255,255,1}, "Press Enter or A button to continue"},0,WIN_HEIGHT/3+64,WIN_WIDTH,"center")
+	love.graphics.printf({{255,255,255,1}, "Press Escape or Y button to quit"},0,WIN_HEIGHT/3+128,WIN_WIDTH,"center")
 end
 
 function menu:keyreleased(key, code)
@@ -21,6 +22,15 @@ function menu:keyreleased(key, code)
 	end
 	if key == "escape" then
 	   love.event.quit()
+	end
+end
+
+function menu:update(dt)
+	if joystick and joystick:isGamepadDown('a') then
+		Gamestate.switch(game)
+	end
+	if joystick and joystick:isGamepadDown('y') then
+		love.event.quit()
 	end
 end
 
@@ -58,6 +68,9 @@ function game:keyreleased(key, code)
 end
 
 function game:update(dt)
+	if joystick and joystick:isGamepadDown('start') then
+		Gamestate.switch(menu)
+	end
 	map:update(dt)
 end
 
