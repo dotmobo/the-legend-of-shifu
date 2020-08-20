@@ -19,18 +19,21 @@ end
 function createPlayerInLayer(world, layer, player)
 	local sprite = love.graphics.newImage(PATH_SHIFU)
 	local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
+	local bulletSprite = love.graphics.newImage(PATH_PEE)
 
     layer.player = {
 		sprite = sprite,
 		animations = {
 			stop = anim8.newAnimation(g('1-2','1-2'), 0.25),
-			move = anim8.newAnimation(g('1-2','3-3'), 0.25)
+			move = anim8.newAnimation(g('1-2','3-3'), 0.125)
 		},
 		x      = player.x,
 		y      = player.y,
 		width = SPRITESIZE,
 		height = SPRITESIZE,
-		speed = 96
+		speed = PLAYER_SPEED,
+		bullets = {},
+		bulletSprite = bulletSprite,
 		-- ox     = sprite:getWidth() / 2,
 		-- oy     = sprite:getHeight() / 1.10
 	}
@@ -45,11 +48,23 @@ function addControlsToPlayer(world, layer)
 		player.x, player.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
-		  print('collided with ' .. tostring(cols[i].other))
+		  print('collided with ' .. tostring(cols[i].type))
 		end
 	end
 
-    layer.update = function(self, dt)
+	local moveBullet = function(bullets, index, bullet, goalX, goalY)
+		local actualX, actualY, cols, len = world:move(bullet, goalX, goalY)
+		bullet.x, bullet.y = actualX, actualY
+		-- deal with the collisions
+		for i=1,len do
+		print('collided with ' .. tostring(cols[i].type))
+		  table.remove(bullets, index)
+		  world:remove(bullet)
+		end
+	end
+
+	currentShootTimer = 0
+	layer.update = function(self, dt)
 		-- Move player up
 		if love.keyboard.isDown("w", "up") then
 			movePlayer(self.player, self.player.x, self.player.y - self.player.speed * dt)
@@ -74,32 +89,44 @@ function addControlsToPlayer(world, layer)
 			-- static animation by default
 			self.player.animation = self.player.animations.stop
 		end
-
+		-- On met à jour l'animation du joueur
 		self.player.animation:update(dt)
+
+		-- add bullet
+		currentShootTimer = currentShootTimer + dt
+		if love.keyboard.isDown("space") and currentShootTimer > BULLET_TIMER then
+			local bullet = {}
+			bullet.width = BULLET_WIDTH
+			bullet.height = BULLET_HEIGHT
+			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
+			bullet.y = playerLayer.player.y - bullet.height
+			table.insert(self.player.bullets, bullet)
+			world:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
+			currentShootTimer = 0
+		end
+		-- move bullet
+		for index, bullet in ipairs(self.player.bullets) do
+			moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y - BULLET_SPEED * dt)
+		end
 	end
 end
 
 -- on dessine le joueur
 function drawPlayer(layer)
 	layer.draw = function(self)
+		-- player's animation
 		self.player.animation:draw(self.player.sprite, math.floor(self.player.x), math.floor(self.player.y))
-		--love.graphics.draw(
-		--	self.player.sprite,
-		--	math.floor(self.player.x),
-		--	math.floor(self.player.y),
-		--	0,
-		--	1,
-		--	1,
-		--	self.player.ox,
-		--	self.player.oy
-		-- )
-
+		-- player's bullets
+		for _,bullet in ipairs(self.player.bullets) do
+			love.graphics.draw(self.player.bulletSprite, bullet.x,bullet.y)
+		end
 		-- for debugging
-		-- love.graphics.setPointSize(5)
-		-- love.graphics.points(math.floor(self.player.x), math.floor(self.player.y))
+		love.graphics.setPointSize(5)
+		love.graphics.points(math.floor(self.player.x), math.floor(self.player.y))
 	end
 end
 
+-- on supprime le layer de spawn devenu inutile
 function removeUnneededLayer()
     map:removeLayer("player")
 end
