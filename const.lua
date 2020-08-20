@@ -15,3 +15,4 @@ BULLET_TIMER = 0.4
 BULLET_SPEED = 250
 BULLET_WIDTH = 2
 BULLET_HEIGHT = 8
+PATH_BULLET_SOUND = "assets/sounds/56271__q-k__water-gulp.wav"

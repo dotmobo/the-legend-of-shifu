@@ -20,6 +20,8 @@ function createPlayerInLayer(world, layer, player)
 	local sprite = love.graphics.newImage(PATH_SHIFU)
 	local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
 	local bulletSprite = love.graphics.newImage(PATH_PEE)
+	--load sound
+	local bulletSound = love.audio.newSource(PATH_BULLET_SOUND, "static")
 
     layer.player = {
 		sprite = sprite,
@@ -34,6 +36,7 @@ function createPlayerInLayer(world, layer, player)
 		speed = PLAYER_SPEED,
 		bullets = {},
 		bulletSprite = bulletSprite,
+		bulletSound = bulletSound,
 		moves = {
 			stop = "stop",
 			up = "up",
@@ -75,6 +78,7 @@ function addControlsToPlayer(world, layer)
 	end
 
 	local createBullet = function(bullets, move)
+		playerLayer.player.bulletSound:play()
 		local bullet = {}
 		bullet.width = BULLET_WIDTH
 		bullet.height = BULLET_HEIGHT
