@@ -62,7 +62,7 @@ function updatePlayer(world, layer)
 		player.x, player.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
-		  print('collided with ' .. tostring(cols[i].type))
+		  print('player collided with ' .. tostring(cols[i].type))
 		end
 	end
 
@@ -71,7 +71,7 @@ function updatePlayer(world, layer)
 		bullet.x, bullet.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
-			print('collided with ' .. tostring(cols[i].type))
+			print('bullet collided with ' .. tostring(cols[i].type))
 			if cols[i].type=='slide' then
 				world:remove(bullet)
 				table.remove(bullets, index)

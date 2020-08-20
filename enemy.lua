@@ -22,6 +22,8 @@ function loadEnemy(world, layer, enemy)
 		y      = enemy.y,
 		width = SPRITESIZE,
         height = SPRITESIZE,
+        speed = 50,
+        directionX = 1,
         moves = {
 			stop = "stop",
 		}
@@ -33,9 +35,25 @@ function loadEnemy(world, layer, enemy)
 end
 
 function updateEnemy(world, layer)
+    local moveEnemy = function(enemy, goalX, goalY)
+		local actualX, actualY, cols, len = world:move(enemy, goalX, goalY)
+		enemy.x, enemy.y = actualX, actualY
+		-- deal with the collisions
+		for i=1,len do
+          print('enemy collided with ' .. tostring(cols[i].type))
+          if cols[i].type == 'slide' then
+            enemy.directionX = enemy.directionX * -1
+            end
+		end
+    end
+
     layer.update = function(self, dt)
         -- default animation
         layer.enemy.move = layer.enemy.moves.stop
+        -- move enemy
+        moveEnemy(self.enemy, self.enemy.x + self.enemy.directionX * self.enemy.speed * dt, self.enemy.y)
+
+
         -- On met à jour l'animation du joueur
 		self.enemy.animation:update(dt)
     end
@@ -45,7 +63,6 @@ function drawEnemy(layer)
 	layer.draw = function(self)
 		-- enemy's animation
 		self.enemy.animation:draw(self.enemy.sprite, math.floor(self.enemy.x), math.floor(self.enemy.y))
-		-- enemy's bullets
 
 		if ENABLE_DEBUG then
 			love.graphics.setPointSize(5)
