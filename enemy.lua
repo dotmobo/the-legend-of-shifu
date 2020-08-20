@@ -74,7 +74,6 @@ function updateEnemies(world, layer, enemies)
 
     layer.update = function(self, dt)
         for index, enemy in ipairs(enemies) do
-            print("ENEMY " .. index)
             if not self.enemies[index].removed then
                 -- default animation
                 self.enemies[index].move = self.enemies[index].moves.run
