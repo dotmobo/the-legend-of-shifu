@@ -57,9 +57,12 @@ function addControlsToPlayer(world, layer)
 		bullet.x, bullet.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
-		print('collided with ' .. tostring(cols[i].type))
-		  table.remove(bullets, index)
-		  world:remove(bullet)
+			print('collided with ' .. tostring(cols[i].type))
+			if cols[i].type=='slide' then
+				world:remove(bullet)
+				table.remove(bullets, index)
+				break
+			end
 		end
 	end
 
@@ -100,8 +103,8 @@ function addControlsToPlayer(world, layer)
 			bullet.height = BULLET_HEIGHT
 			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
 			bullet.y = playerLayer.player.y - bullet.height
-			table.insert(self.player.bullets, bullet)
 			world:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
+			table.insert(self.player.bullets, bullet)
 			currentShootTimer = 0
 		end
 		-- move bullet
