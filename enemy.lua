@@ -20,10 +20,12 @@ end
 -- creer le jouer dans le layer
 function loadEnemies(world, layer, enemies)
     enemiesLayer.enemies = {}
+    local sprite = love.graphics.newImage(PATH_SKELETON)
+    local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
+    local enemyHitSound = love.audio.newSource(PATH_SKELETON_HIT_SOUND, "static")
+
     for index, enemy in ipairs(enemies) do
-        local sprite = love.graphics.newImage(PATH_SKELETON)
-        local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
-        layer.enemies[index] = {
+         layer.enemies[index] = {
             sprite = sprite,
             animations = {
                 stop = anim8.newAnimation(g('1-2','1-1'), 0.5),
@@ -35,11 +37,12 @@ function loadEnemies(world, layer, enemies)
             height = SPRITESIZE,
             speed = 50,
             directionX = 1,
+            enemyHitSound = enemyHitSound,
             moves = {
                 stop = "stop",
                 run = "run",
             },
-            life = 1,
+            life = 3,
             dead = false,
             removed = false
         }

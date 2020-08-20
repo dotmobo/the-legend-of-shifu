@@ -17,3 +17,4 @@ BULLET_WIDTH = 2
 BULLET_HEIGHT = 8
 PATH_BULLET_SOUND = "assets/sounds/56271__q-k__water-gulp.wav"
 PATH_SKELETON = "assets/sprites/skeleton.png"
+PATH_SKELETON_HIT_SOUND = "assets/sounds/163447__under7dude__zombie-hit.wav"
