@@ -1,9 +1,9 @@
 local enemiesAliveNumber
 
-function initEnemies(map, world, enemiesLayer)
+function initEnemies()
     local enemies= {}
     local maxEnemies = 7
-    local enemiesNum = math.floor(math.random(level, GAME_DIFFICULTY*level % maxEnemies))
+    local enemiesNum = math.floor(math.random(Level, GAME_DIFFICULTY*Level % maxEnemies))
     print("Number of enemies: "..enemiesNum)
     for i=1, enemiesNum do
         local enemy = {}
@@ -13,27 +13,25 @@ function initEnemies(map, world, enemiesLayer)
     end
 
     enemiesAliveNumber = enemiesNum
-
-   -- for index, enemy in ipairs(enemies) do
-    loadEnemies(world, enemiesLayer, enemies)
-    updateEnemies(world, enemiesLayer, enemies)
-    drawEnemies(enemiesLayer, enemies)
+    loadEnemies(enemies)
+    updateEnemies(enemies)
+    drawEnemies(enemies)
 
 end
 
 -- creer le jouer dans le layer
-function loadEnemies(world, layer, enemies)
-    enemiesLayer.enemies = {}
+function loadEnemies(enemies)
+    EnemiesLayer.enemies = {}
     local sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
-    local g = anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
+    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
     local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
 
     for index, enemy in ipairs(enemies) do
-         layer.enemies[index] = {
+         EnemiesLayer.enemies[index] = {
             sprite = sprite,
             animations = {
-                stop = anim8.newAnimation(g('1-2','1-1'), 0.5),
-                die = anim8.newAnimation(g('1-2','2-3'), 0.25),
+                stop = Anim8.newAnimation(g('1-2','1-1'), 0.5),
+                die = Anim8.newAnimation(g('1-2','2-3'), 0.25),
             },
             x      = enemy.x,
             y      = enemy.y,
@@ -52,20 +50,20 @@ function loadEnemies(world, layer, enemies)
             dead = false,
             removed = false
         }
-        layer.enemies[index].animations.die.onLoop = function(anim)
+        EnemiesLayer.enemies[index].animations.die.onLoop = function(anim)
             anim:pauseAtEnd()
-            layer.enemies[index].dead = true
+            EnemiesLayer.enemies[index].dead = true
         end
 
 
-        layer.enemies[index].animation = layer.enemies[index].animations.stop
-        layer.enemies[index].move = layer.enemies[index].moves.stop
-        world:add(layer.enemies[index], layer.enemies[index].x, layer.enemies[index].y, layer.enemies[index].width, layer.enemies[index].height)
+        EnemiesLayer.enemies[index].animation = EnemiesLayer.enemies[index].animations.stop
+        EnemiesLayer.enemies[index].move = EnemiesLayer.enemies[index].moves.stop
+        World:add(EnemiesLayer.enemies[index], EnemiesLayer.enemies[index].x, EnemiesLayer.enemies[index].y, EnemiesLayer.enemies[index].width, EnemiesLayer.enemies[index].height)
 
     end
 end
 
-function updateEnemies(world, layer, enemies)
+function updateEnemies(enemies)
     local enemyFilter = function(item, other)
 		if other.life then
 			return "touch"
@@ -75,7 +73,7 @@ function updateEnemies(world, layer, enemies)
     end
 
     local moveEnemy = function(enemy, goalX, goalY)
-		local actualX, actualY, cols, len = world:move(enemy, goalX, goalY, enemyFilter)
+		local actualX, actualY, cols, len = World:move(enemy, goalX, goalY, enemyFilter)
 		enemy.x, enemy.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
@@ -92,7 +90,7 @@ function updateEnemies(world, layer, enemies)
 		end
     end
 
-    layer.update = function(self, dt)
+    EnemiesLayer.update = function(self, dt)
         for index, enemy in ipairs(enemies) do
             if self.enemies[index] and not self.enemies[index].removed then
                 -- default animation
@@ -122,8 +120,8 @@ function updateEnemies(world, layer, enemies)
                 -- remove the enemy from bump when he is deadd
                 if self.enemies[index].dead then
                     print("dead " .. index)
-                    score = score + 1
-                    world:remove(self.enemies[index])
+                    Score = Score + 1
+                    World:remove(self.enemies[index])
                     self.enemies[index].removed = true
                     -- some bugs if i realy remove enemy, maybe clear it when level change
                     -- table.remove(self.enemies, index)
@@ -132,16 +130,16 @@ function updateEnemies(world, layer, enemies)
 
                 -- if not enemies, read enemies
                 if enemiesAliveNumber ==0 then
-                    initEnemies(map, world, enemiesLayer)
-                    level = level + 1
+                    initEnemies(enemiesLayer)
+                    Level = Level + 1
                 end
             end
         end
     end
 end
 
-function drawEnemies(layer, enemies)
-    layer.draw = function(self)
+function drawEnemies(enemies)
+    EnemiesLayer.draw = function(self)
         for index, enemy in ipairs(enemies) do
             if self.enemies[index] and not self.enemies[index].removed then
 

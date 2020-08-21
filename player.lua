@@ -1,15 +1,15 @@
-function initPlayer(map, world, playerLayer)
-	local spawn = getPlayerSpawn(map)
-	loadPlayer(world, playerLayer, spawn)
-	updatePlayer(world, playerLayer)
-	drawPlayer(playerLayer)
+function initPlayer()
+	local spawn = getPlayerSpawn()
+	loadPlayer(spawn)
+	updatePlayer()
+	drawPlayer()
 	removeUnneededLayer()
 end
 
 -- récupère le spawn
-function getPlayerSpawn(map)
+function getPlayerSpawn()
     local player
-    for k, object in pairs(map.objects) do
+    for k, object in pairs(Map.objects) do
         if object.name == PLAYER_OBJECT_NAME then
 			player = object
 			break
@@ -19,19 +19,19 @@ function getPlayerSpawn(map)
 end
 
 -- creer le jouer dans le layer
-function loadPlayer(world, layer, player)
+function loadPlayer(player)
 	local sprite = love.graphics.newImage(PLAYER_SPRITE_PATH)
-	local g = anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
+	local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
 	local bulletSprite = love.graphics.newImage(PLAYER_WEAPON_PATH)
 	--load sound
 	local bulletSound = love.audio.newSource(BULLET_SOUND_PATH, "static")
 	local hitSound = love.audio.newSource(PLAYER_HIT_SOUND_PATH, "static")
 
-    layer.player = {
+    PlayerLayer.player = {
 		sprite = sprite,
 		animations = {
-			stop = anim8.newAnimation(g('1-2','1-2'), 0.25),
-			move = anim8.newAnimation(g('1-2','3-3'), 0.125)
+			stop = Anim8.newAnimation(g('1-2','1-2'), 0.25),
+			move = Anim8.newAnimation(g('1-2','3-3'), 0.125)
 		},
 		x      = player.x,
 		y      = player.y,
@@ -56,12 +56,12 @@ function loadPlayer(world, layer, player)
 		-- ox     = sprite:getWidth() / 2,
 		-- oy     = sprite:getHeight() / 1.10
 	}
-	layer.player.animation = layer.player.animations.stop
-	layer.player.move = layer.player.moves.stop
-	world:add(layer.player, layer.player.x, layer.player.y, layer.player.width, layer.player.height)
+	PlayerLayer.player.animation = PlayerLayer.player.animations.stop
+	PlayerLayer.player.move = PlayerLayer.player.moves.stop
+	World:add(PlayerLayer.player, PlayerLayer.player.x, PlayerLayer.player.y, PlayerLayer.player.width, PlayerLayer.player.height)
 end
 
-function updatePlayer(world, layer)
+function updatePlayer()
 
 	local playerFilter = function(item, other)
 		if other.life then
@@ -72,7 +72,7 @@ function updatePlayer(world, layer)
 	end
 
 	local movePlayer = function(player, goalX, goalY)
-		local actualX, actualY, cols, len = world:move(player, goalX, goalY, playerFilter)
+		local actualX, actualY, cols, len = World:move(player, goalX, goalY, playerFilter)
 		player.x, player.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
@@ -88,7 +88,7 @@ function updatePlayer(world, layer)
 	end
 
 	local moveBullet = function(bullets, index, bullet, goalX, goalY)
-		local actualX, actualY, cols, len = world:move(bullet, goalX, goalY, bulletFilter)
+		local actualX, actualY, cols, len = World:move(bullet, goalX, goalY, bulletFilter)
 		bullet.x, bullet.y = actualX, actualY
 		-- deal with the collisions
 		for i=1,len do
@@ -104,7 +104,7 @@ function updatePlayer(world, layer)
 			end
 
 			if cols[i].type=='slide' or cols[i].type=='touch' then
-				world:remove(bullet)
+				World:remove(bullet)
 				table.remove(bullets, index)
 				break
 			end
@@ -114,7 +114,7 @@ function updatePlayer(world, layer)
 	end
 
 	local createBullet = function(bullets, move)
-		playerLayer.player.bulletSound:play()
+		PlayerLayer.player.bulletSound:play()
 		local bullet = {}
 		bullet.width = BULLET_WIDTH
 		bullet.height = BULLET_HEIGHT
@@ -127,30 +127,30 @@ function updatePlayer(world, layer)
 		}
 		if move == "up" then
 			bullet.move = bullet.moves.up
-			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
-			bullet.y = playerLayer.player.y - bullet.height
+			bullet.x = PlayerLayer.player.x + PlayerLayer.player.width / 2
+			bullet.y = PlayerLayer.player.y - bullet.height
 		elseif move == "down" then
 			bullet.move = bullet.moves.down
-			bullet.x = playerLayer.player.x + playerLayer.player.width / 2
-			bullet.y = playerLayer.player.y + playerLayer.player.height
+			bullet.x = PlayerLayer.player.x + PlayerLayer.player.width / 2
+			bullet.y = PlayerLayer.player.y + PlayerLayer.player.height
 		elseif move == "left" then
 			bullet.move = bullet.moves.left
-			bullet.x = playerLayer.player.x - bullet.width
-			bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+			bullet.x = PlayerLayer.player.x - bullet.width
+			bullet.y = PlayerLayer.player.y + PlayerLayer.player.height / 2
 		elseif move == "right" then
 			bullet.move = bullet.moves.right
-			bullet.x = playerLayer.player.x + playerLayer.player.width
-			bullet.y = playerLayer.player.y + playerLayer.player.height / 2
+			bullet.x = PlayerLayer.player.x + PlayerLayer.player.width
+			bullet.y = PlayerLayer.player.y + PlayerLayer.player.height / 2
 		end
-		world:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
+		World:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
 		table.insert(bullets, bullet)
 		return bullet
 	end
 
 	currentShootTimer = 0
-	layer.update = function(self, dt)
+	PlayerLayer.update = function(self, dt)
 		if self.player.life <=0 then
-			Gamestate.switch(menu)
+			Gamestate.switch(Menu)
 		end
 		-- hit
 		if self.player.hitted and self.player.hittedTime > 0 then
@@ -160,30 +160,30 @@ function updatePlayer(world, layer)
 			end
 		end
 		-- default animation
-		layer.player.move = layer.player.moves.stop
+		PlayerLayer.player.move = PlayerLayer.player.moves.stop
 		-- Move player up
-		if love.keyboard.isDown("up") or (joystick and joystick:isGamepadDown('dpup')) then
-			layer.player.move = layer.player.moves.up
+		if love.keyboard.isDown("up") or (Joystick and Joystick:isGamepadDown('dpup')) then
+			PlayerLayer.player.move = PlayerLayer.player.moves.up
 			movePlayer(self.player, self.player.x, self.player.y - self.player.speed * dt)
 		end
 		-- Move player down
-		if love.keyboard.isDown("down") or (joystick and joystick:isGamepadDown('dpdown')) then
-			layer.player.move = layer.player.moves.down
+		if love.keyboard.isDown("down") or (Joystick and Joystick:isGamepadDown('dpdown')) then
+			PlayerLayer.player.move = PlayerLayer.player.moves.down
 			movePlayer(self.player, self.player.x, self.player.y + self.player.speed * dt)
 		end
 		-- Move player left
-		if love.keyboard.isDown("left") or (joystick and joystick:isGamepadDown('dpleft')) then
-			layer.player.move = layer.player.moves.left
+		if love.keyboard.isDown("left") or (Joystick and Joystick:isGamepadDown('dpleft')) then
+			PlayerLayer.player.move = PlayerLayer.player.moves.left
 			movePlayer(self.player, self.player.x - self.player.speed * dt, self.player.y)
 		end
 		-- Move player right
-		if love.keyboard.isDown("right") or (joystick and joystick:isGamepadDown('dpright')) then
-			layer.player.move = layer.player.moves.right
+		if love.keyboard.isDown("right") or (Joystick and Joystick:isGamepadDown('dpright')) then
+			PlayerLayer.player.move = PlayerLayer.player.moves.right
 			movePlayer(self.player, self.player.x + self.player.speed * dt, self.player.y)
 		end
 
 		-- animation
-		if layer.player.move ~= layer.player.moves.stop then
+		if PlayerLayer.player.move ~= PlayerLayer.player.moves.stop then
 			-- move animation
 			self.player.animation = self.player.animations.move
 		else
@@ -196,16 +196,16 @@ function updatePlayer(world, layer)
 		-- add bullet
 		currentShootTimer = currentShootTimer + dt
 		if currentShootTimer > BULLET_TIMER then
-			if love.keyboard.isDown("z", "w") or (joystick and joystick:isGamepadDown('y')) then
+			if love.keyboard.isDown("z", "w") or (Joystick and Joystick:isGamepadDown('y')) then
 				local bullet = createBullet(self.player.bullets, "up")
 				currentShootTimer = 0
-			elseif love.keyboard.isDown("s") or (joystick and joystick:isGamepadDown('a')) then
+			elseif love.keyboard.isDown("s") or (Joystick and Joystick:isGamepadDown('a')) then
 				local bullet = createBullet(self.player.bullets, "down")
 				currentShootTimer = 0
-			elseif love.keyboard.isDown("a", "q") or (joystick and joystick:isGamepadDown('x')) then
+			elseif love.keyboard.isDown("a", "q") or (Joystick and Joystick:isGamepadDown('x')) then
 				local bullet = createBullet(self.player.bullets, "left")
 				currentShootTimer = 0
-			elseif love.keyboard.isDown("d") or (joystick and joystick:isGamepadDown('b')) then
+			elseif love.keyboard.isDown("d") or (Joystick and Joystick:isGamepadDown('b')) then
 				local bullet = createBullet(self.player.bullets, "right")
 				currentShootTimer = 0
 			end
@@ -226,8 +226,8 @@ function updatePlayer(world, layer)
 end
 
 -- on dessine le joueur
-function drawPlayer(layer)
-	layer.draw = function(self)
+function drawPlayer()
+	PlayerLayer.draw = function(self)
 		if self.player.hitted then
 			love.graphics.setColor(208, 0, 0, 1)
 		else
@@ -253,5 +253,5 @@ end
 
 -- on supprime le layer de spawn devenu inutile
 function removeUnneededLayer()
-    map:removeLayer("player")
+    Map:removeLayer("player")
 end
