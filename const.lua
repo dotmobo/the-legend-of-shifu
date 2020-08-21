@@ -1,27 +1,33 @@
-ENABLE_DEBUG = false
-TITLE = "The Legend of Shifu"
-PATH_ICON = "assets/icon/icon.png"
-FONT_SIZE = 18
+-- debug
+DEBUG_ENABLE = false
+-- windows
 WIN_WIDTH = 800
 WIN_HEIGHT = 600
-SCALE = 2
-SPRITESIZE = 32
-COLLISION_MODE = "bump"
-PATH_LEVEL1 = "assets/game/levels/level1.lua"
-PATH_SHIFU = "assets/sprites/shifu.png"
-PATH_PLAYER_HIT_SOUND = "assets/sounds/262313__steffcaffrey__cat-meow2.wav"
-OBJECT_PLAYER = "player"
+-- game
+GAME_TITLE = "The Legend of Shifu"
+GAME_ICON_PATH = "assets/icon/icon.png"
+GAME_FONT_SIZE = 18
+GAME_SCALE = 2
+GAME_SPRITE_SIZE = 32
+GAME_COLLISION_MODE = "bump"
+GAME_LEVEL_PATH = "assets/game/levels/level1.lua"
+GAME_HITTED_SPEED = 5
+GAME_DIFFICULTY = 2
+-- player
+PLAYER_SPRITE_PATH = "assets/sprites/shifu.png"
+PLAYER_HIT_SOUND_PATH = "assets/sounds/262313__steffcaffrey__cat-meow2.wav"
+PLAYER_OBJECT_NAME = "player"
 PLAYER_SPEED = 110
 PLAYER_LIFE = 5
-PATH_PEE = "assets/sprites/pee.png"
+PLAYER_WEAPON_PATH = "assets/sprites/pee.png"
+-- bullet
 BULLET_TIMER = 0.4
 BULLET_SPEED = 250
 BULLET_WIDTH = 2
 BULLET_HEIGHT = 8
-PATH_BULLET_SOUND = "assets/sounds/56271__q-k__water-gulp.wav"
-PATH_SKELETON = "assets/sprites/skeleton.png"
-PATH_SKELETON_HIT_SOUND = "assets/sounds/163447__under7dude__zombie-hit.wav"
+BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
+-- skeleton
+SKELETON_SPRITE_PATH = "assets/sprites/skeleton.png"
+SKELETON_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
 SKELETON_SPEED = 50
 SKELETON_LIFE = 3
-HITTED_SPEED = 5
-DIFFICULTY = 2

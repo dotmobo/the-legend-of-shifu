@@ -2,17 +2,13 @@ local enemiesAliveNumber
 
 function initEnemies(map, world, enemiesLayer)
     local enemies= {}
-    -- local enemy1 = {x = SPRITESIZE*2, y = SPRITESIZE*2}
-    -- local enemy2 = {x = SPRITESIZE*5, y = SPRITESIZE*7}
-    -- table.insert(enemies, enemy1)
-    -- table.insert(enemies, enemy2)
     local maxEnemies = 7
-    local enemiesNum = math.floor(math.random(level, DIFFICULTY*level % maxEnemies))
+    local enemiesNum = math.floor(math.random(level, GAME_DIFFICULTY*level % maxEnemies))
     print("Number of enemies: "..enemiesNum)
     for i=1, enemiesNum do
         local enemy = {}
-        enemy.x = SPRITESIZE*math.random(2, 8)
-        enemy.y = i*SPRITESIZE
+        enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
+        enemy.y = i*GAME_SPRITE_SIZE
         table.insert(enemies, enemy)
     end
 
@@ -28,9 +24,9 @@ end
 -- creer le jouer dans le layer
 function loadEnemies(world, layer, enemies)
     enemiesLayer.enemies = {}
-    local sprite = love.graphics.newImage(PATH_SKELETON)
-    local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
-    local hitSound = love.audio.newSource(PATH_SKELETON_HIT_SOUND, "static")
+    local sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
+    local g = anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
+    local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
 
     for index, enemy in ipairs(enemies) do
          layer.enemies[index] = {
@@ -41,8 +37,8 @@ function loadEnemies(world, layer, enemies)
             },
             x      = enemy.x,
             y      = enemy.y,
-            width = SPRITESIZE,
-            height = SPRITESIZE,
+            width = GAME_SPRITE_SIZE,
+            height = GAME_SPRITE_SIZE,
             speed = SKELETON_SPEED,
             directionX = 1,
             hitSound = hitSound,
@@ -103,7 +99,7 @@ function updateEnemies(world, layer, enemies)
                 self.enemies[index].move = self.enemies[index].moves.run
 
                 if self.enemies[index].hitted and self.enemies[index].hittedTime > 0 then
-                    self.enemies[index].hittedTime = self.enemies[index].hittedTime - HITTED_SPEED*dt
+                    self.enemies[index].hittedTime = self.enemies[index].hittedTime - GAME_HITTED_SPEED*dt
                     if self.enemies[index].hittedTime <= 0 then
                         self.enemies[index].hitted = false
                     end
@@ -156,7 +152,7 @@ function drawEnemies(layer, enemies)
                 end
                 self.enemies[index].animation:draw(self.enemies[index].sprite, math.floor(self.enemies[index].x), math.floor(self.enemies[index].y))
 
-                if ENABLE_DEBUG then
+                if DEBUG_ENABLE then
                     love.graphics.setPointSize(5)
                     love.graphics.points(math.floor(self.enemies[index].x), math.floor(self.enemies[index].y))
                 end

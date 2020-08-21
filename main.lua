@@ -11,7 +11,7 @@ menu = {}
 game = {}
 
 function menu:enter()
-	icon = love.graphics.newImage(PATH_ICON)
+	icon = love.graphics.newImage(GAME_ICON_PATH)
 end
 
 function menu:draw()
@@ -45,7 +45,7 @@ function game:enter()
 	level = 1
     -- load world
 	world = bump.newWorld()
-	map = sti(PATH_LEVEL1, {COLLISION_MODE})
+	map = sti(GAME_LEVEL_PATH, {GAME_COLLISION_MODE})
 	map:bump_init(world)
 	-- adds custom layers
 	playerLayer = map:addCustomLayer("sprites", 5)
@@ -63,7 +63,7 @@ function love.load()
 	local joysticks = love.joystick.getJoysticks()
 	joystick = joysticks[1]
 	-- font
-    font = love.graphics.newFont(FONT_SIZE)
+    font = love.graphics.newFont(GAME_FONT_SIZE)
     love.graphics.setFont(font)
 end
 
@@ -81,16 +81,16 @@ function game:update(dt)
 end
 
 function game:draw()
-	-- love.graphics.scale(SCALE, SCALE)
+	-- love.graphics.scale(GAME_SCALE, GAME_SCALE)
 	local tx, ty = getScaleTransformations(map)
-	map:draw(tx, ty, SCALE, SCALE);
-	if ENABLE_DEBUG then
-		map:bump_draw(world, tx, ty, SCALE, SCALE)
+	map:draw(tx, ty, GAME_SCALE, GAME_SCALE);
+	if DEBUG_ENABLE then
+		map:bump_draw(world, tx, ty, GAME_SCALE, GAME_SCALE)
 	end
 	-- hud
 	love.graphics.print({{255,255,255,1}, 'score: '..math.floor(score)},0,0)
-	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-FONT_SIZE)
-	love.graphics.print({{255,255,255,1}, "level: "..level},WIN_WIDTH-FONT_SIZE*5,0)
-	love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-FONT_SIZE*8,WIN_HEIGHT-FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-GAME_FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, "level: "..level},WIN_WIDTH-GAME_FONT_SIZE*5,0)
+	love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-GAME_FONT_SIZE*8,WIN_HEIGHT-GAME_FONT_SIZE)
 end
 

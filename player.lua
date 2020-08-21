@@ -10,7 +10,7 @@ end
 function getPlayerSpawn(map)
     local player
     for k, object in pairs(map.objects) do
-        if object.name == OBJECT_PLAYER then
+        if object.name == PLAYER_OBJECT_NAME then
 			player = object
 			break
 		end
@@ -20,12 +20,12 @@ end
 
 -- creer le jouer dans le layer
 function loadPlayer(world, layer, player)
-	local sprite = love.graphics.newImage(PATH_SHIFU)
-	local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
-	local bulletSprite = love.graphics.newImage(PATH_PEE)
+	local sprite = love.graphics.newImage(PLAYER_SPRITE_PATH)
+	local g = anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
+	local bulletSprite = love.graphics.newImage(PLAYER_WEAPON_PATH)
 	--load sound
-	local bulletSound = love.audio.newSource(PATH_BULLET_SOUND, "static")
-	local hitSound = love.audio.newSource(PATH_PLAYER_HIT_SOUND, "static")
+	local bulletSound = love.audio.newSource(BULLET_SOUND_PATH, "static")
+	local hitSound = love.audio.newSource(PLAYER_HIT_SOUND_PATH, "static")
 
     layer.player = {
 		sprite = sprite,
@@ -35,8 +35,8 @@ function loadPlayer(world, layer, player)
 		},
 		x      = player.x,
 		y      = player.y,
-		width = SPRITESIZE,
-		height = SPRITESIZE,
+		width = GAME_SPRITE_SIZE,
+		height = GAME_SPRITE_SIZE,
 		speed = PLAYER_SPEED,
 		bullets = {},
 		bulletSprite = bulletSprite,
@@ -154,7 +154,7 @@ function updatePlayer(world, layer)
 		end
 		-- hit
 		if self.player.hitted and self.player.hittedTime > 0 then
-			self.player.hittedTime = self.player.hittedTime - HITTED_SPEED*dt
+			self.player.hittedTime = self.player.hittedTime - GAME_HITTED_SPEED*dt
 			if self.player.hittedTime <= 0 then
 				self.player.hitted = false
 			end
@@ -243,7 +243,7 @@ function drawPlayer(layer)
 				love.graphics.draw(self.player.bulletSprite, bullet.x,bullet.y)
 			end
 		end
-		if ENABLE_DEBUG then
+		if DEBUG_ENABLE then
 			love.graphics.setPointSize(5)
 			love.graphics.points(math.floor(self.player.x), math.floor(self.player.y))
 		end
