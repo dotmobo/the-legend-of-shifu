@@ -44,7 +44,8 @@ function loadPlayer(world, layer, player)
 		life = 3,
 		playerHitSound = playerHitSound,
 		hitted = false,
-        hittedTime = 0,
+		hittedTime = 0,
+		weapon = "pee",
 		moves = {
 			stop = "stop",
 			up = "up",

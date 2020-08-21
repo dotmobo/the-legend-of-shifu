@@ -10,7 +10,12 @@ anim8 = require("libs/anim8")
 menu = {}
 game = {}
 
+function menu:enter()
+	icon = love.graphics.newImage(PATH_ICON)
+end
+
 function menu:draw()
+	love.graphics.draw(icon, WIN_WIDTH/3, WIN_HEIGHT/3)
 	love.graphics.printf({{255,255,255,1}, 'The Legend of Shifu'},0,WIN_HEIGHT/3,WIN_WIDTH,"center")
 	love.graphics.printf({{255,255,255,1}, "Press Enter or A button to continue"},0,WIN_HEIGHT/3+64,WIN_WIDTH,"center")
 	love.graphics.printf({{255,255,255,1}, "Press Escape or Y button to quit"},0,WIN_HEIGHT/3+128,WIN_WIDTH,"center")
@@ -83,6 +88,8 @@ function game:draw()
 	end
 	-- hud
 	love.graphics.print({{255,255,255,1}, 'score: '..math.floor(score)},0,0)
-	love.graphics.print({{255,255,255,1}, 'life: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, "level 1"},WIN_WIDTH-FONT_SIZE*5,0)
+	love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-FONT_SIZE*8,WIN_HEIGHT-FONT_SIZE)
 end
 
