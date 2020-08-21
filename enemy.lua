@@ -7,7 +7,7 @@ function initEnemies(map, world, enemiesLayer)
     -- table.insert(enemies, enemy1)
     -- table.insert(enemies, enemy2)
 
-    local enemiesNum = math.floor(DIFFICULTY * math.random(1, 3))
+    local enemiesNum = math.floor(math.random(1, 3*DIFFICULTY))
     print("Number of enemies: "..enemiesNum)
     for i=1, enemiesNum do
         local enemy = {}
