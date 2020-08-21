@@ -42,6 +42,7 @@ end
 function game:enter()
 	-- reset score
 	score = 0
+	level = 1
     -- load world
 	world = bump.newWorld()
 	map = sti(PATH_LEVEL1, {COLLISION_MODE})
@@ -89,7 +90,7 @@ function game:draw()
 	-- hud
 	love.graphics.print({{255,255,255,1}, 'score: '..math.floor(score)},0,0)
 	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-FONT_SIZE)
-	love.graphics.print({{255,255,255,1}, "level 1"},WIN_WIDTH-FONT_SIZE*5,0)
+	love.graphics.print({{255,255,255,1}, "level: "..level},WIN_WIDTH-FONT_SIZE*5,0)
 	love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-FONT_SIZE*8,WIN_HEIGHT-FONT_SIZE)
 end
 

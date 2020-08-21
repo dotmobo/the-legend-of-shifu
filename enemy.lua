@@ -1,4 +1,4 @@
-
+local enemiesAliveNumber
 
 function initEnemies(map, world, enemiesLayer)
     local enemies= {}
@@ -7,7 +7,7 @@ function initEnemies(map, world, enemiesLayer)
     -- table.insert(enemies, enemy1)
     -- table.insert(enemies, enemy2)
 
-    local enemiesNum = math.floor(math.random(1, 3*DIFFICULTY))
+    local enemiesNum = math.floor(math.random(1, DIFFICULTY*level % 7))
     print("Number of enemies: "..enemiesNum)
     for i=1, enemiesNum do
         local enemy = {}
@@ -15,6 +15,8 @@ function initEnemies(map, world, enemiesLayer)
         enemy.y = i*SPRITESIZE
         table.insert(enemies, enemy)
     end
+
+    enemiesAliveNumber = enemiesNum
 
    -- for index, enemy in ipairs(enemies) do
     loadEnemies(world, enemiesLayer, enemies)
@@ -129,6 +131,13 @@ function updateEnemies(world, layer, enemies)
                     self.enemies[index].removed = true
                     -- some bugs if i realy remove enemy, maybe clear it when level change
                     -- table.remove(self.enemies, index)
+                    enemiesAliveNumber = enemiesAliveNumber - 1
+                end
+
+                -- if not enemies, read enemies
+                if enemiesAliveNumber ==0 then
+                    initEnemies(map, world, enemiesLayer)
+                    level = level + 1
                 end
             end
         end
