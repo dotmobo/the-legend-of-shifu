@@ -6,8 +6,8 @@ function initEnemies(map, world, enemiesLayer)
     -- local enemy2 = {x = SPRITESIZE*5, y = SPRITESIZE*7}
     -- table.insert(enemies, enemy1)
     -- table.insert(enemies, enemy2)
-
-    local enemiesNum = math.floor(math.random(1, DIFFICULTY*level % 7))
+    local maxEnemies = 7
+    local enemiesNum = math.floor(math.random(level, DIFFICULTY*level % maxEnemies))
     print("Number of enemies: "..enemiesNum)
     for i=1, enemiesNum do
         local enemy = {}
@@ -43,7 +43,7 @@ function loadEnemies(world, layer, enemies)
             y      = enemy.y,
             width = SPRITESIZE,
             height = SPRITESIZE,
-            speed = 50,
+            speed = SKELETON_SPEED,
             directionX = 1,
             hitSound = hitSound,
             hitted = false,
@@ -52,7 +52,7 @@ function loadEnemies(world, layer, enemies)
                 stop = "stop",
                 run = "run",
             },
-            life = 3,
+            life = SKELETON_LIFE,
             dead = false,
             removed = false
         }

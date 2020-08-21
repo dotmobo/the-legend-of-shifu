@@ -41,7 +41,7 @@ function loadPlayer(world, layer, player)
 		bullets = {},
 		bulletSprite = bulletSprite,
 		bulletSound = bulletSound,
-		life = 3,
+		life = PLAYER_LIFE,
 		hitSound = hitSound,
 		hitted = false,
 		hittedTime = 0,
