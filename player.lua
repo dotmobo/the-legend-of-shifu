@@ -25,7 +25,7 @@ function loadPlayer(world, layer, player)
 	local bulletSprite = love.graphics.newImage(PATH_PEE)
 	--load sound
 	local bulletSound = love.audio.newSource(PATH_BULLET_SOUND, "static")
-	local playerHitSound = love.audio.newSource(PATH_PLAYER_HIT_SOUND, "static")
+	local hitSound = love.audio.newSource(PATH_PLAYER_HIT_SOUND, "static")
 
     layer.player = {
 		sprite = sprite,
@@ -42,7 +42,7 @@ function loadPlayer(world, layer, player)
 		bulletSprite = bulletSprite,
 		bulletSound = bulletSound,
 		life = 3,
-		playerHitSound = playerHitSound,
+		hitSound = hitSound,
 		hitted = false,
 		hittedTime = 0,
 		weapon = "pee",
@@ -99,7 +99,7 @@ function updatePlayer(world, layer)
 					cols[i].other.hitted = true
 					cols[i].other.hittedTime = 1
 					cols[i].other.life = cols[i].other.life - 1
-					cols[i].other.enemyHitSound:play()
+					cols[i].other.hitSound:play()
 				end
 			end
 

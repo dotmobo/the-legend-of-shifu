@@ -1,4 +1,4 @@
-ENABLE_DEBUG = false
+ENABLE_DEBUG = true
 TITLE = "The Legend of Shifu"
 PATH_ICON = "assets/icon/icon.png"
 FONT_SIZE = 18
@@ -21,3 +21,4 @@ PATH_BULLET_SOUND = "assets/sounds/56271__q-k__water-gulp.wav"
 PATH_SKELETON = "assets/sprites/skeleton.png"
 PATH_SKELETON_HIT_SOUND = "assets/sounds/163447__under7dude__zombie-hit.wav"
 HITTED_SPEED = 5
+DIFFICULTY = 1

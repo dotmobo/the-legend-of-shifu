@@ -2,13 +2,19 @@
 
 function initEnemies(map, world, enemiesLayer)
     local enemies= {}
-    local enemy1 = {x = SPRITESIZE*2, y = SPRITESIZE*2}
-    local enemy2 = {x = SPRITESIZE*5, y = SPRITESIZE*7}
-    -- local enemy3 = {x = SPRITESIZE*2, y = SPRITESIZE*2}
-    table.insert(enemies, enemy1)
-    table.insert(enemies, enemy2)
-    -- table.insert(enemies, enemy3)
+    -- local enemy1 = {x = SPRITESIZE*2, y = SPRITESIZE*2}
+    -- local enemy2 = {x = SPRITESIZE*5, y = SPRITESIZE*7}
+    -- table.insert(enemies, enemy1)
+    -- table.insert(enemies, enemy2)
 
+    local enemiesNum = math.floor(DIFFICULTY * math.random(1, 3))
+    print("Number of enemies: "..enemiesNum)
+    for i=1, enemiesNum do
+        local enemy = {}
+        enemy.x = SPRITESIZE*math.random(2, 8)
+        enemy.y = i*SPRITESIZE
+        table.insert(enemies, enemy)
+    end
 
    -- for index, enemy in ipairs(enemies) do
     loadEnemies(world, enemiesLayer, enemies)
@@ -22,7 +28,7 @@ function loadEnemies(world, layer, enemies)
     enemiesLayer.enemies = {}
     local sprite = love.graphics.newImage(PATH_SKELETON)
     local g = anim8.newGrid(SPRITESIZE, SPRITESIZE, sprite:getWidth(), sprite:getHeight())
-    local enemyHitSound = love.audio.newSource(PATH_SKELETON_HIT_SOUND, "static")
+    local hitSound = love.audio.newSource(PATH_SKELETON_HIT_SOUND, "static")
 
     for index, enemy in ipairs(enemies) do
          layer.enemies[index] = {
@@ -37,7 +43,7 @@ function loadEnemies(world, layer, enemies)
             height = SPRITESIZE,
             speed = 50,
             directionX = 1,
-            enemyHitSound = enemyHitSound,
+            hitSound = hitSound,
             hitted = false,
             hittedTime = 0,
             moves = {
@@ -83,7 +89,7 @@ function updateEnemies(world, layer, enemies)
                 cols[i].other.hitted = true
 				cols[i].other.hittedTime = 1
                 cols[i].other.life = cols[i].other.life - 1
-                cols[i].other.playerHitSound:play()
+                cols[i].other.hitSound:play()
             end
 		end
     end
