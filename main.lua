@@ -10,7 +10,6 @@ Score = nil
 Level = nil
 World = nil
 Map = nil
-PlayerLayer = nil
 EnemiesLayer = nil
 -- game state
 Menu = {}

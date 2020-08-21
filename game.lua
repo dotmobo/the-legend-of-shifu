@@ -2,6 +2,8 @@
 require('player')
 require('enemy')
 
+local playerLayer
+
 function Game:enter()
 	-- reset score
 	Score = 0
@@ -11,11 +13,11 @@ function Game:enter()
 	Map = Sti(GAME_LEVEL_PATH, {GAME_COLLISION_MODE})
 	Map:bump_init(World)
 	-- adds custom layers
-	PlayerLayer = Map:addCustomLayer("sprites", 5)
-	EnemiesLayer = Map:addCustomLayer("enemies", 6)
+	playerLayer = Map:addCustomLayer("sprites", 5)
+	local enemiesLayer = Map:addCustomLayer("enemies", 6)
 	-- init player and enemies
-	initPlayer()
-	initEnemies()
+	initPlayer(playerLayer)
+	initEnemies(enemiesLayer)
 end
 
 function Game:keyreleased(key, code)
@@ -40,7 +42,7 @@ function Game:draw()
 	end
 	-- hud
 	love.graphics.print({{255,255,255,1}, 'score: '..math.floor(Score)},0,0)
-	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(PlayerLayer.player.life)},0,WIN_HEIGHT-GAME_FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-GAME_FONT_SIZE)
 	love.graphics.print({{255,255,255,1}, "level: "..Level},WIN_WIDTH-GAME_FONT_SIZE*5,0)
-	love.graphics.print({{255,255,255,1}, 'weapon: '..PlayerLayer.player.weapon},WIN_WIDTH-GAME_FONT_SIZE*8,WIN_HEIGHT-GAME_FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-GAME_FONT_SIZE*8,WIN_HEIGHT-GAME_FONT_SIZE)
 end

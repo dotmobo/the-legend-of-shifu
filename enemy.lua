@@ -1,7 +1,8 @@
 local enemiesAliveNumber
 
-function initEnemies()
-    local enemies= {}
+
+function initEnemies(layer)
+    local enemies = {}
     local maxEnemies = 7
     local enemiesNum = math.floor(math.random(Level, GAME_DIFFICULTY*Level % maxEnemies))
     print("Number of enemies: "..enemiesNum)
@@ -13,21 +14,21 @@ function initEnemies()
     end
 
     enemiesAliveNumber = enemiesNum
-    loadEnemies(enemies)
-    updateEnemies(enemies)
-    drawEnemies(enemies)
+    loadEnemies(layer, enemies)
+    updateEnemies(layer, enemies)
+    drawEnemies(layer, enemies)
 
 end
 
 -- creer le jouer dans le layer
-function loadEnemies(enemies)
-    EnemiesLayer.enemies = {}
+function loadEnemies(layer, enemies)
+    layer.enemies = {}
     local sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
     local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
     local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
 
     for index, enemy in ipairs(enemies) do
-         EnemiesLayer.enemies[index] = {
+         layer.enemies[index] = {
             sprite = sprite,
             animations = {
                 stop = Anim8.newAnimation(g('1-2','1-1'), 0.5),
@@ -50,20 +51,20 @@ function loadEnemies(enemies)
             dead = false,
             removed = false
         }
-        EnemiesLayer.enemies[index].animations.die.onLoop = function(anim)
+        layer.enemies[index].animations.die.onLoop = function(anim)
             anim:pauseAtEnd()
-            EnemiesLayer.enemies[index].dead = true
+            layer.enemies[index].dead = true
         end
 
 
-        EnemiesLayer.enemies[index].animation = EnemiesLayer.enemies[index].animations.stop
-        EnemiesLayer.enemies[index].move = EnemiesLayer.enemies[index].moves.stop
-        World:add(EnemiesLayer.enemies[index], EnemiesLayer.enemies[index].x, EnemiesLayer.enemies[index].y, EnemiesLayer.enemies[index].width, EnemiesLayer.enemies[index].height)
+        layer.enemies[index].animation = layer.enemies[index].animations.stop
+        layer.enemies[index].move = layer.enemies[index].moves.stop
+        World:add(layer.enemies[index], layer.enemies[index].x, layer.enemies[index].y, layer.enemies[index].width, layer.enemies[index].height)
 
     end
 end
 
-function updateEnemies(enemies)
+function updateEnemies(layer, enemies)
     local enemyFilter = function(item, other)
 		if other.life then
 			return "touch"
@@ -90,7 +91,7 @@ function updateEnemies(enemies)
 		end
     end
 
-    EnemiesLayer.update = function(self, dt)
+    layer.update = function(self, dt)
         for index, enemy in ipairs(enemies) do
             if self.enemies[index] and not self.enemies[index].removed then
                 -- default animation
@@ -130,7 +131,7 @@ function updateEnemies(enemies)
 
                 -- if not enemies, read enemies
                 if enemiesAliveNumber ==0 then
-                    initEnemies(enemiesLayer)
+                    initEnemies(layer)
                     Level = Level + 1
                 end
             end
@@ -138,8 +139,8 @@ function updateEnemies(enemies)
     end
 end
 
-function drawEnemies(enemies)
-    EnemiesLayer.draw = function(self)
+function drawEnemies(layer, enemies)
+    layer.draw = function(self)
         for index, enemy in ipairs(enemies) do
             if self.enemies[index] and not self.enemies[index].removed then
 
