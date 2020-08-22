@@ -1,17 +1,18 @@
+require('levels')
+
 local enemiesAliveNumber
 
-
 function initEnemies(layer)
-    local enemies = {}
-    local maxEnemies = 7
-    local enemiesNum = math.floor(math.random(Level, GAME_DIFFICULTY*Level % maxEnemies))
+    local enemies, enemiesNum = getLevelEnemies()
+    -- local maxEnemies = 7
+    -- local enemiesNum = math.floor(math.random(Level, GAME_DIFFICULTY*Level % maxEnemies))
     print("Number of enemies: "..enemiesNum)
-    for i=1, enemiesNum do
-        local enemy = {}
-        enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-        enemy.y = i*GAME_SPRITE_SIZE
-        table.insert(enemies, enemy)
-    end
+    -- for i=1, enemiesNum do
+    --    local enemy = {}
+    --    enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
+    --    enemy.y = i*GAME_SPRITE_SIZE
+    --    table.insert(enemies, enemy)
+    -- end
 
     enemiesAliveNumber = enemiesNum
     loadEnemies(layer, enemies)
@@ -23,19 +24,22 @@ end
 -- creer le jouer dans le layer
 function loadEnemies(layer, enemies)
     layer.enemies = {}
-    local sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
-    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
+    local spriteSkeleton = love.graphics.newImage(SKELETON_SPRITE_PATH)
+    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteSkeleton:getWidth(), spriteSkeleton:getHeight())
+    local spriteZombie = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
+    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteZombie:getWidth(), spriteZombie:getHeight())
     local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
 
     for index, enemy in ipairs(enemies) do
          layer.enemies[index] = {
-            sprite = sprite,
+            sprite = spriteSkeleton,
             animations = {
                 stop = Anim8.newAnimation(g('1-2','1-1'), 0.5),
                 die = Anim8.newAnimation(g('1-2','2-3'), 0.25),
             },
             x      = enemy.x,
             y      = enemy.y,
+            type   = enemy.type,
             width = GAME_SPRITE_SIZE,
             height = GAME_SPRITE_SIZE,
             speed = SKELETON_SPEED,
@@ -131,8 +135,8 @@ function updateEnemies(layer, enemies)
 
                 -- if not enemies, read enemies
                 if enemiesAliveNumber ==0 then
-                    initEnemies(layer)
                     Level = Level + 1
+                    initEnemies(layer)
                 end
             end
         end

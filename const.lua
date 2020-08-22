@@ -10,7 +10,7 @@ GAME_FONT_SIZE = 18
 GAME_SCALE = 2
 GAME_SPRITE_SIZE = 32
 GAME_COLLISION_MODE = "bump"
-GAME_LEVEL_PATH = "assets/game/levels/level1.lua"
+GAME_LEVEL_PATH = "assets/game/levels/level3.lua"
 GAME_HITTED_SPEED = 5
 GAME_DIFFICULTY = 2
 -- player
@@ -31,3 +31,5 @@ SKELETON_SPRITE_PATH = "assets/sprites/skeleton.png"
 SKELETON_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
 SKELETON_SPEED = 50
 SKELETON_LIFE = 3
+-- zombie
+ZOMBIE_SPRITE_PATH = "assets/sprites/zombie.png"
