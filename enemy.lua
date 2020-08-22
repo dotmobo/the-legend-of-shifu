@@ -106,8 +106,12 @@ function updateEnemies(layer, enemies)
 
                 -- if not enemies, read enemies
                 if enemiesAliveNumber ==0 then
-                    Level = Level + 1
-                    initEnemies(layer)
+                    if Level == 5 then
+                        Gamestate.switch(Menu)
+                    else
+                        Level = Level + 1
+                        initEnemies(layer)
+                    end
                 end
             end
         end
