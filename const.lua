@@ -27,7 +27,7 @@ BULLET_WIDTH = 2
 BULLET_HEIGHT = 8
 BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- skeleton
-SKELETON_SPRITE_PATH = "assets/sprites/skeleton.png"
+SKELETON_SPRITE_PATH = "assets/sprites/tree.png"
 SKELETON_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
 SKELETON_SPEED = 50
 SKELETON_LIFE = 3

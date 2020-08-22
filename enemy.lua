@@ -26,8 +26,8 @@ function loadEnemies(layer, enemies)
     layer.enemies = {}
     local spriteSkeleton = love.graphics.newImage(SKELETON_SPRITE_PATH)
     local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteSkeleton:getWidth(), spriteSkeleton:getHeight())
-    local spriteZombie = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
-    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteZombie:getWidth(), spriteZombie:getHeight())
+    -- local spriteZombie = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
+    -- local g2 = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteZombie:getWidth(), spriteZombie:getHeight())
     local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
 
     for index, enemy in ipairs(enemies) do
@@ -35,7 +35,7 @@ function loadEnemies(layer, enemies)
             sprite = spriteSkeleton,
             animations = {
                 stop = Anim8.newAnimation(g('1-2','1-1'), 0.5),
-                die = Anim8.newAnimation(g('1-2','2-3'), 0.25),
+                die = Anim8.newAnimation(g('1-2','2-2'), 0.25),
             },
             x      = enemy.x,
             y      = enemy.y,
