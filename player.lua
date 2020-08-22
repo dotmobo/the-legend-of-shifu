@@ -163,22 +163,22 @@ function updatePlayer(layer)
 		-- default animation
 		layer.player.move = layer.player.moves.stop
 		-- Move player up
-		if love.keyboard.isDown("up") or (Joystick and Joystick:isGamepadDown('dpup')) then
+		if love.keyboard.isDown("up") or (Joystick and Joystick:isGamepadDown('dpup') or Joystick:getGamepadAxis('lefty') <= -0.25) then
 			layer.player.move = layer.player.moves.up
 			movePlayer(self.player, self.player.x, self.player.y - self.player.speed * dt)
 		end
 		-- Move player down
-		if love.keyboard.isDown("down") or (Joystick and Joystick:isGamepadDown('dpdown')) then
+		if love.keyboard.isDown("down") or (Joystick and Joystick:isGamepadDown('dpdown') or Joystick:getGamepadAxis('lefty') >= 0.25) then
 			layer.player.move = layer.player.moves.down
 			movePlayer(self.player, self.player.x, self.player.y + self.player.speed * dt)
 		end
 		-- Move player left
-		if love.keyboard.isDown("left") or (Joystick and Joystick:isGamepadDown('dpleft')) then
+		if love.keyboard.isDown("left") or (Joystick and Joystick:isGamepadDown('dpleft') or Joystick:getGamepadAxis('leftx') <= -0.25) then
 			layer.player.move = layer.player.moves.left
 			movePlayer(self.player, self.player.x - self.player.speed * dt, self.player.y)
 		end
 		-- Move player right
-		if love.keyboard.isDown("right") or (Joystick and Joystick:isGamepadDown('dpright')) then
+		if love.keyboard.isDown("right") or (Joystick and Joystick:isGamepadDown('dpright') or Joystick:getGamepadAxis('leftx') >= 0.25) then
 			layer.player.move = layer.player.moves.right
 			movePlayer(self.player, self.player.x + self.player.speed * dt, self.player.y)
 		end
@@ -197,16 +197,16 @@ function updatePlayer(layer)
 		-- add bullet
 		currentShootTimer = currentShootTimer + dt
 		if currentShootTimer > BULLET_TIMER then
-			if love.keyboard.isDown("z", "w") or (Joystick and Joystick:isGamepadDown('y')) then
+			if love.keyboard.isDown("z", "w") or (Joystick and Joystick:isGamepadDown('y') or Joystick:getGamepadAxis('righty') <= -0.75) then
 				local bullet = createBullet(self.player.bullets, "up")
 				currentShootTimer = 0
-			elseif love.keyboard.isDown("s") or (Joystick and Joystick:isGamepadDown('a')) then
+			elseif love.keyboard.isDown("s") or (Joystick and Joystick:isGamepadDown('a') or Joystick:getGamepadAxis('righty') >= 0.75) then
 				local bullet = createBullet(self.player.bullets, "down")
 				currentShootTimer = 0
-			elseif love.keyboard.isDown("a", "q") or (Joystick and Joystick:isGamepadDown('x')) then
+			elseif love.keyboard.isDown("a", "q") or (Joystick and Joystick:isGamepadDown('x') or Joystick:getGamepadAxis('rightx') <= -0.75) then
 				local bullet = createBullet(self.player.bullets, "left")
 				currentShootTimer = 0
-			elseif love.keyboard.isDown("d") or (Joystick and Joystick:isGamepadDown('b')) then
+			elseif love.keyboard.isDown("d") or (Joystick and Joystick:isGamepadDown('b') or Joystick:getGamepadAxis('rightx') >= 0.75) then
 				local bullet = createBullet(self.player.bullets, "right")
 				currentShootTimer = 0
 			end

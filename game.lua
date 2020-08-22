@@ -34,9 +34,9 @@ function Game:keyreleased(key, code)
 end
 
 function Game:update(dt)
-	if Joystick and Joystick:isGamepadDown('start') then
+	--[[if Joystick and Joystick:isGamepadDown('leftshoulder') or Joystick:isGamepadDown('rightshoulder') then
 		Gamestate.switch(Menu)
-	end
+	end]]--
 	Map:update(dt)
 end
 
