@@ -31,12 +31,30 @@ BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- skeleton
 SKELETON_SPRITE_PATH = "assets/sprites/skeleton.png"
 SKELETON_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
-SKELETON_SPEED = 50
-SKELETON_LIFE = 3
+SKELETON_SPEED = 75
+SKELETON_LIFE = 2
 -- zombie
 ZOMBIE_SPRITE_PATH = "assets/sprites/zombie.png"
--- others
+ZOMBIE_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+ZOMBIE_SPEED = 50
+ZOMBIE_LIFE = 3
+-- snake
 SNAKE_SPRITE_PATH = "assets/sprites/snake.png"
+SNAKE_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+SNAKE_SPEED = 125
+SNAKE_LIFE = 1
+-- bird
 BIRD_SPRITE_PATH = "assets/sprites/bird.png"
+BIRD_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+BIRD_SPEED = 65
+BIRD_LIFE = 4
+-- tree
 TREE_SPRITE_PATH = "assets/sprites/tree.png"
+TREE_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+TREE_SPEED = 25
+TREE_LIFE = 5
+-- chicken
 CHICKEN_SPRITE_PATH = "assets/sprites/chicken.png"
+CHICKEN_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+CHICKEN_SPEED = 95
+CHICKEN_LIFE = 3
