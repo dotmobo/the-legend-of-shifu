@@ -24,22 +24,39 @@ end
 -- creer le jouer dans le layer
 function loadEnemies(layer, enemies)
     layer.enemies = {}
-    local spriteSkeleton = love.graphics.newImage(SKELETON_SPRITE_PATH)
-    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteSkeleton:getWidth(), spriteSkeleton:getHeight())
-    -- local spriteZombie = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
-    -- local g2 = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, spriteZombie:getWidth(), spriteZombie:getHeight())
+    local randomType = math.random(1,6)
+    local sprite
+    local animStopX = '1-2'
+    local animStopY = '1-1'
+    local animDieX = '1-2'
+    local animDieY = '2-2'
+    if randomType == 1 then
+        sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
+        animDieY = '2-3'
+    elseif randomType == 2 then
+        sprite = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
+        animDieY = '2-3'
+    elseif randomType == 3 then
+        sprite = love.graphics.newImage(SNAKE_SPRITE_PATH)
+    elseif randomType == 4 then
+        sprite = love.graphics.newImage(BIRD_SPRITE_PATH)
+    elseif randomType == 5 then
+        sprite = love.graphics.newImage(TREE_SPRITE_PATH)
+    elseif randomType == 6 then
+        sprite = love.graphics.newImage(CHICKEN_SPRITE_PATH)
+    end
+    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
     local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
 
     for index, enemy in ipairs(enemies) do
          layer.enemies[index] = {
-            sprite = spriteSkeleton,
+            sprite = sprite,
             animations = {
-                stop = Anim8.newAnimation(g('1-2','1-1'), 0.5),
-                die = Anim8.newAnimation(g('1-2','2-2'), 0.25),
+                stop = Anim8.newAnimation(g(animStopX,animStopY), 0.5),
+                die = Anim8.newAnimation(g(animDieX,animDieY), 0.25),
             },
             x      = enemy.x,
             y      = enemy.y,
-            type   = enemy.type,
             width = GAME_SPRITE_SIZE,
             height = GAME_SPRITE_SIZE,
             speed = SKELETON_SPEED,

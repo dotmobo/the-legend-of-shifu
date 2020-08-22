@@ -19,6 +19,8 @@ require('game')
 
 
 function love.load()
+	-- random seed
+	math.randomseed(os.time())
 	-- menu
 	Gamestate.registerEvents()
     Gamestate.switch(Menu)

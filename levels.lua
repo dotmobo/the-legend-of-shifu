@@ -7,7 +7,6 @@ function getLevelEnemies()
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
             enemy.y = i*GAME_SPRITE_SIZE
-            enemy.type = 'skeleton'
             table.insert(enemies, enemy)
         end
     end
@@ -17,7 +16,6 @@ function getLevelEnemies()
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
             enemy.y = i*GAME_SPRITE_SIZE
-            enemy.type = 'skeleton'
             table.insert(enemies, enemy)
         end
     end
@@ -27,7 +25,6 @@ function getLevelEnemies()
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
             enemy.y = i*GAME_SPRITE_SIZE
-            enemy.type = 'skeleton'
             table.insert(enemies, enemy)
         end
     end
@@ -37,7 +34,6 @@ function getLevelEnemies()
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
             enemy.y = i*GAME_SPRITE_SIZE
-            enemy.type = 'zombie'
             table.insert(enemies, enemy)
         end
     end
@@ -47,17 +43,6 @@ function getLevelEnemies()
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
             enemy.y = i*GAME_SPRITE_SIZE
-            enemy.type = 'zombie'
-            table.insert(enemies, enemy)
-        end
-    end
-    if Level == 6 then
-        enemiesNum = 1
-        for i=1, enemiesNum do
-            local enemy = {}
-            enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-            enemy.y = i*GAME_SPRITE_SIZE
-            enemy.type = 'minette'
             table.insert(enemies, enemy)
         end
     end
