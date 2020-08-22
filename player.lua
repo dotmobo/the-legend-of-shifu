@@ -151,7 +151,7 @@ function updatePlayer(layer)
 	currentShootTimer = 0
 	layer.update = function(self, dt)
 		if self.player.life <=0 then
-			Gamestate.switch(Menu)
+			Gamestate.switch(Lose)
 		end
 		-- hit
 		if self.player.hitted and self.player.hittedTime > 0 then

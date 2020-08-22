@@ -14,9 +14,12 @@ EnemiesLayer = nil
 -- game state
 Menu = {}
 Game = {}
+Lose = {}
+Win = {}
 require('menu')
 require('game')
-
+require('lose')
+require('win')
 
 function love.load()
 	-- random seed
