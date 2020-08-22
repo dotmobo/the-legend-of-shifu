@@ -1,4 +1,5 @@
 require('levels')
+require('enemyTypes')
 
 local enemiesAliveNumber
 
@@ -21,63 +22,16 @@ function initEnemies(layer)
 
 end
 
--- creer le jouer dans le layer
+-- creer les enemies dans le layer
 function loadEnemies(layer, enemies)
+    -- load enemies
     layer.enemies = {}
-    local randomType = math.random(1,6)
-    local sprite
-    local animStopX = '1-2'
-    local animStopY = '1-1'
-    local animDieX = '1-2'
-    local animDieY = '2-2'
-    if randomType == 1 then
-        sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
-        animDieY = '2-3'
-    elseif randomType == 2 then
-        sprite = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
-        animDieY = '2-3'
-    elseif randomType == 3 then
-        sprite = love.graphics.newImage(SNAKE_SPRITE_PATH)
-    elseif randomType == 4 then
-        sprite = love.graphics.newImage(BIRD_SPRITE_PATH)
-    elseif randomType == 5 then
-        sprite = love.graphics.newImage(TREE_SPRITE_PATH)
-    elseif randomType == 6 then
-        sprite = love.graphics.newImage(CHICKEN_SPRITE_PATH)
-    end
-    local g = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, sprite:getWidth(), sprite:getHeight())
-    local hitSound = love.audio.newSource(SKELETON_HIT_SOUND_PATH, "static")
-
     for index, enemy in ipairs(enemies) do
-         layer.enemies[index] = {
-            sprite = sprite,
-            animations = {
-                stop = Anim8.newAnimation(g(animStopX,animStopY), 0.5),
-                die = Anim8.newAnimation(g(animDieX,animDieY), 0.25),
-            },
-            x      = enemy.x,
-            y      = enemy.y,
-            width = GAME_SPRITE_SIZE,
-            height = GAME_SPRITE_SIZE,
-            speed = SKELETON_SPEED,
-            directionX = 1,
-            hitSound = hitSound,
-            hitted = false,
-            hittedTime = 0,
-            moves = {
-                stop = "stop",
-                run = "run",
-            },
-            life = SKELETON_LIFE,
-            dead = false,
-            removed = false
-        }
+        layer.enemies[index] = getRandomEnemy(enemy.x, enemy.y)
         layer.enemies[index].animations.die.onLoop = function(anim)
             anim:pauseAtEnd()
             layer.enemies[index].dead = true
         end
-
-
         layer.enemies[index].animation = layer.enemies[index].animations.stop
         layer.enemies[index].move = layer.enemies[index].moves.stop
         World:add(layer.enemies[index], layer.enemies[index].x, layer.enemies[index].y, layer.enemies[index].width, layer.enemies[index].height)
