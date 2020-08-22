@@ -10,7 +10,14 @@ function Game:enter()
 	Level = 1
     -- load world
 	World = Bump.newWorld()
-	Map = Sti(GAME_LEVEL_PATH, {GAME_COLLISION_MODE})
+	local randomWorld = math.random(1,3)
+	if randomWorld == 1 then
+		Map = Sti(GAME_WORLD1_PATH, {GAME_COLLISION_MODE})
+	elseif randomWorld == 2 then
+		Map = Sti(GAME_WORLD2_PATH, {GAME_COLLISION_MODE})
+	elseif randomWorld == 3 then
+		Map = Sti(GAME_WORLD3_PATH, {GAME_COLLISION_MODE})
+	end
 	Map:bump_init(World)
 	-- adds custom layers
 	playerLayer = Map:addCustomLayer("sprites", 5)
