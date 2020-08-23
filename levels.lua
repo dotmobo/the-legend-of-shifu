@@ -6,7 +6,7 @@ function getLevelEnemies()
         for i=1, enemiesNum do
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-            enemy.y = i*GAME_SPRITE_SIZE
+            enemy.y = GAME_SPRITE_SIZE*math.random(1, 5)
             table.insert(enemies, enemy)
         end
     end
@@ -15,7 +15,7 @@ function getLevelEnemies()
         for i=1, enemiesNum do
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-            enemy.y = i*GAME_SPRITE_SIZE
+            enemy.y = GAME_SPRITE_SIZE*math.random(1, 5)
             table.insert(enemies, enemy)
         end
     end
@@ -24,7 +24,7 @@ function getLevelEnemies()
         for i=1, enemiesNum do
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-            enemy.y = i*GAME_SPRITE_SIZE
+            enemy.y = GAME_SPRITE_SIZE*math.random(1, 5)
             table.insert(enemies, enemy)
         end
     end
@@ -33,7 +33,7 @@ function getLevelEnemies()
         for i=1, enemiesNum do
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-            enemy.y = i*GAME_SPRITE_SIZE
+            enemy.y = GAME_SPRITE_SIZE*math.random(1, 5)
             table.insert(enemies, enemy)
         end
     end
@@ -42,7 +42,7 @@ function getLevelEnemies()
         for i=1, enemiesNum do
             local enemy = {}
             enemy.x = GAME_SPRITE_SIZE*math.random(2, 8)
-            enemy.y = i*GAME_SPRITE_SIZE
+            enemy.y = GAME_SPRITE_SIZE*math.random(1, 5)
             table.insert(enemies, enemy)
         end
     end
