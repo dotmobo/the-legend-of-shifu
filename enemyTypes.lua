@@ -51,6 +51,14 @@ function getSkeleton(x, y)
     enemy.removed = false
     enemy.x = x
     enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(SKELETON_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(SKELETON_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = SKELETON_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = SKELETON_BULLET_SPEED
+    enemy.bulletWidth = SKELETON_BULLET_WIDTH
+    enemy.bulletHeight = SKELETON_BULLET_HEIGHT
     return enemy
 end
 
@@ -79,6 +87,14 @@ function getZombie(x, y)
     enemy.removed = false
     enemy.x = x
     enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(ZOMBIE_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(ZOMBIE_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = ZOMBIE_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = ZOMBIE_BULLET_SPEED
+    enemy.bulletWidth = ZOMBIE_BULLET_WIDTH
+    enemy.bulletHeight = ZOMBIE_BULLET_HEIGHT
     return enemy
 end
 
@@ -107,6 +123,14 @@ function getSnake(x, y)
     enemy.removed = false
     enemy.x = x
     enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(SNAKE_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(SNAKE_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = SNAKE_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = SNAKE_BULLET_SPEED
+    enemy.bulletWidth = SNAKE_BULLET_WIDTH
+    enemy.bulletHeight = SNAKE_BULLET_HEIGHT
     return enemy
 end
 
@@ -135,6 +159,14 @@ function getBird(x, y)
     enemy.removed = false
     enemy.x = x
     enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(BIRD_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(BIRD_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = BIRD_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = BIRD_BULLET_SPEED
+    enemy.bulletWidth = BIRD_BULLET_WIDTH
+    enemy.bulletHeight = BIRD_BULLET_HEIGHT
     return enemy
 end
 
@@ -163,6 +195,14 @@ function getTree(x, y)
     enemy.removed = false
     enemy.x = x
     enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(TREE_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(TREE_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = TREE_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = TREE_BULLET_SPEED
+    enemy.bulletWidth = TREE_BULLET_WIDTH
+    enemy.bulletHeight = TREE_BULLET_HEIGHT
     return enemy
 end
 
@@ -191,5 +231,13 @@ function getChicken(x, y)
     enemy.removed = false
     enemy.x = x
     enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(CHICKEN_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(CHICKEN_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = CHICKEN_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = CHICKEN_BULLET_SPEED
+    enemy.bulletWidth = CHICKEN_BULLET_WIDTH
+    enemy.bulletHeight = CHICKEN_BULLET_HEIGHT
     return enemy
 end

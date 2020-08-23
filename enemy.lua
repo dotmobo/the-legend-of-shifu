@@ -70,6 +70,69 @@ function updateEnemies(layer, enemies)
 		enemyCollide(cols, len)
     end
 
+    local bulletFilter = function(item, other)
+		return "touch"
+	end
+
+	local bulletCollide = function(cols, len, bullets, index, bullet)
+		-- deal with the collisions
+		for i=1,len do
+			print('bullet collided with ' .. tostring(cols[i].type))
+			if cols[i].type=='touch' then
+				if cols[i].other.isPlayer then
+					print(cols[i].other.life)
+					cols[i].other.hitted = true
+					cols[i].other.hittedTime = 1
+					cols[i].other.life = cols[i].other.life - 1
+					cols[i].other.hitSound:play()
+				end
+				World:remove(bullet)
+				table.remove(bullets, index)
+				break
+			end
+		end
+	end
+
+	local moveBullet = function(bullets, index, bullet, goalX, goalY)
+		local actualX, actualY, cols, len = World:move(bullet, goalX, goalY, bulletFilter)
+		bullet.x, bullet.y = actualX, actualY
+		bulletCollide(cols, len, bullets, index, bullet)
+    end
+    
+    local createBullet = function(enemy, move)
+		enemy.bulletSound:play()
+		local bullet = {}
+		bullet.width = enemy.bulletWidth
+		bullet.height = enemy.bulletHeight
+		bullet.moves = {
+			stop = "stop",
+			up = "up",
+			down = "down",
+			left = "left",
+			right = "right"
+		}
+		if move == "up" then
+			bullet.move = bullet.moves.up
+			bullet.x = enemy.x + enemy.width / 2
+			bullet.y = enemy.y - bullet.height
+		elseif move == "down" then
+			bullet.move = bullet.moves.down
+			bullet.x = enemy.x + enemy.width / 2
+			bullet.y = enemy.y + enemy.height
+		elseif move == "left" then
+			bullet.move = bullet.moves.left
+			bullet.x = enemy.x - bullet.width
+			bullet.y = enemy.y + enemy.height / 2
+		elseif move == "right" then
+			bullet.move = bullet.moves.right
+			bullet.x = enemy.x + enemy.width
+			bullet.y = enemy.y + enemy.height / 2
+		end
+		World:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
+		table.insert(enemy.bullets, bullet)
+		return bullet
+	end
+
     layer.update = function(self, dt)
         for index, enemy in ipairs(enemies) do
             if self.enemies[index] and not self.enemies[index].removed then
@@ -108,6 +171,27 @@ function updateEnemies(layer, enemies)
                     enemiesAliveNumber = enemiesAliveNumber - 1
                 end
 
+                -- if enemy with bullets
+                if self.enemies[index]['bullets'] ~= nil then
+                    self.enemies[index].bulletCurrentShootTimer = self.enemies[index].bulletCurrentShootTimer + dt
+                    if self.enemies[index].bulletCurrentShootTimer > self.enemies[index].bulletShootTimer then
+                        local bullet = createBullet(self.enemies[index], "down")
+                        self.enemies[index].bulletCurrentShootTimer = 0
+                    end
+                    -- move bullet
+                    for bulletIndex, bullet in ipairs(self.enemies[index].bullets) do
+                        if bullet.move == bullet.moves.down then
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x, bullet.y + self.enemies[index].bulletSpeed * dt)
+                        elseif bullet.move == bullet.moves.left then
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x - self.enemies[index].bulletSpeed * dt, bullet.y)
+                        elseif bullet.move == bullet.moves.right then
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x + self.enemies[index].bulletSpeed * dt, bullet.y)
+                        else
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x, bullet.y - self.enemies[index].bulletSpeed * dt)
+                        end
+                    end
+                end
+
                 -- if not enemies, read enemies
                 if enemiesAliveNumber ==0 then
                     if Level == 5 then
@@ -133,6 +217,18 @@ function drawEnemies(layer, enemies)
                     love.graphics.setColor(255, 255, 255, 1)
                 end
                 self.enemies[index].animation:draw(self.enemies[index].sprite, math.floor(self.enemies[index].x), math.floor(self.enemies[index].y))
+
+
+                -- enemies bullets
+                if self.enemies[index]['bullets'] ~= nil then
+                    for _,bullet in ipairs(self.enemies[index].bullets) do
+                        if bullet.move == bullet.moves.left or bullet.move == bullet.moves.right then
+                            love.graphics.draw(self.enemies[index].bulletSprite, bullet.x,bullet.y, math.rad(90))
+                        else
+                            love.graphics.draw(self.enemies[index].bulletSprite, bullet.x,bullet.y)
+                        end
+                    end
+                end
 
                 if DEBUG_ENABLE then
                     love.graphics.setPointSize(5)
