@@ -164,6 +164,10 @@ function updateEnemies(layer, enemies)
                 if self.enemies[index].dead then
                     print("dead " .. index)
                     Score = Score + 1
+                    for bulletIndex, bullet in ipairs(self.enemies[index].bullets) do
+                        World:remove(bullet)
+                        table.remove(self.enemies[index].bullets, bulletIndex)
+                    end
                     World:remove(self.enemies[index])
                     self.enemies[index].removed = true
                     -- some bugs if i realy remove enemy, maybe clear it when level change
