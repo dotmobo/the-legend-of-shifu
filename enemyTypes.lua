@@ -1,5 +1,16 @@
 function getRandomEnemy(x, y)
-    local randomType = math.random(1, 6)
+    local randomType
+    -- dungeon map with zombies and skeletons
+    if MapType == 1 then
+        randomType = math.random(1, 2)
+    -- desert map with snake and bird
+    elseif MapType == 2 then
+        randomType = math.random(3, 4)
+    -- forest map with tree and chicken
+    elseif MapType == 3 then
+        randomType = math.random(5, 6)
+    end
+    -- return the right monster
     if randomType == 1 then
         return getSkeleton(x, y)
     elseif randomType == 2 then

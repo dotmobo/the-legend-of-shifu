@@ -13,10 +13,13 @@ function Game:enter()
 	local randomWorld = math.random(1,3)
 	if randomWorld == 1 then
 		Map = Sti(GAME_WORLD1_PATH, {GAME_COLLISION_MODE})
+		MapType = 1
 	elseif randomWorld == 2 then
 		Map = Sti(GAME_WORLD2_PATH, {GAME_COLLISION_MODE})
+		MapType = 2
 	elseif randomWorld == 3 then
 		Map = Sti(GAME_WORLD3_PATH, {GAME_COLLISION_MODE})
+		MapType = 3
 	end
 	Map:bump_init(World)
 	-- adds custom layers
