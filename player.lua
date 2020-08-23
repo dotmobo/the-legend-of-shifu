@@ -29,6 +29,7 @@ function loadPlayer(layer, player)
 	local hitSound = love.audio.newSource(PLAYER_HIT_SOUND_PATH, "static")
 
     layer.player = {
+		isPlayer = true,
 		sprite = sprite,
 		animations = {
 			stop = Anim8.newAnimation(g('1-2','1-2'), 0.25),
@@ -65,53 +66,60 @@ end
 function updatePlayer(layer)
 
 	local playerFilter = function(item, other)
-		if other.life then
+		if other.isEnemy then
 			return "touch"
 		else
 			return "slide"
 		end
 	end
 
+	local playerCollide = function(cols, len)
+		-- deal with the collisions
+		-- TODO invinsibility frame before
+		-- for i=1,len do
+		-- 	print('player collided with ' .. tostring(cols[i].type))
+		-- 	if cols[i].type == 'touch' then
+		-- 		cols[i].item.hitted = true
+		-- 		cols[i].item.hittedTime = 1
+		-- 		cols[i].item.life = cols[i].item.life - 1
+		-- 		cols[i].item.hitSound:play()
+		-- 	end
+		-- end
+	end
+
 	local movePlayer = function(player, goalX, goalY)
 		local actualX, actualY, cols, len = World:move(player, goalX, goalY, playerFilter)
 		player.x, player.y = actualX, actualY
-		-- deal with the collisions
-		for i=1,len do
-		  print('player collided with ' .. tostring(cols[i].type))
-		  --if cols[i].other.life then
-		  --	cols[i].item.life = cols[i].item.life - 1
-		  -- end
-		end
+		playerCollide(cols, len)
 	end
 
 	local bulletFilter = function(item, other)
 		return "touch"
 	end
 
-	local moveBullet = function(bullets, index, bullet, goalX, goalY)
-		local actualX, actualY, cols, len = World:move(bullet, goalX, goalY, bulletFilter)
-		bullet.x, bullet.y = actualX, actualY
+	local bulletCollide = function(cols, len, bullets, index, bullet)
 		-- deal with the collisions
 		for i=1,len do
 			print('bullet collided with ' .. tostring(cols[i].type))
 			if cols[i].type=='touch' then
-				if cols[i].other.life then
+				if cols[i].other.isEnemy then
 					print(cols[i].other.life)
 					cols[i].other.hitted = true
 					cols[i].other.hittedTime = 1
 					cols[i].other.life = cols[i].other.life - 1
 					cols[i].other.hitSound:play()
 				end
-			end
-
-			if cols[i].type=='slide' or cols[i].type=='touch' then
 				World:remove(bullet)
 				table.remove(bullets, index)
 				break
 			end
-
-
 		end
+	end
+
+	local moveBullet = function(bullets, index, bullet, goalX, goalY)
+		local actualX, actualY, cols, len = World:move(bullet, goalX, goalY, bulletFilter)
+		bullet.x, bullet.y = actualX, actualY
+		bulletCollide(cols, len, bullets, index, bullet)
 	end
 
 	local createBullet = function(bullets, move)

@@ -28,6 +28,7 @@ end
 
 function getSkeleton(x, y)
     local enemy = {}
+    enemy.isEnemy = true
     enemy.sprite = love.graphics.newImage(SKELETON_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -55,6 +56,7 @@ end
 
 function getZombie(x, y)
     local enemy = {}
+    enemy.isEnemy = true
     enemy.sprite = love.graphics.newImage(ZOMBIE_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -82,6 +84,7 @@ end
 
 function getSnake(x, y)
     local enemy = {}
+    enemy.isEnemy = true
     enemy.sprite = love.graphics.newImage(SNAKE_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -109,6 +112,7 @@ end
 
 function getBird(x, y)
     local enemy = {}
+    enemy.isEnemy = true
     enemy.sprite = love.graphics.newImage(BIRD_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -136,6 +140,7 @@ end
 
 function getTree(x, y)
     local enemy = {}
+    enemy.isEnemy = true
     enemy.sprite = love.graphics.newImage(TREE_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -163,6 +168,7 @@ end
 
 function getChicken(x, y)
     local enemy = {}
+    enemy.isEnemy = true
     enemy.sprite = love.graphics.newImage(CHICKEN_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
