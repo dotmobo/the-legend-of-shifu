@@ -13,6 +13,7 @@ GAME_COLLISION_MODE = "bump"
 GAME_WORLD1_PATH = "assets/game/levels/level1.lua"
 GAME_WORLD2_PATH = "assets/game/levels/level2.lua"
 GAME_WORLD3_PATH = "assets/game/levels/level3.lua"
+GAME_WORLD4_PATH = "assets/game/levels/level4.lua"
 GAME_HITTED_SPEED = 5
 GAME_DIFFICULTY = 2
 -- player
@@ -94,3 +95,25 @@ CHICKEN_BULLET_SPEED = 75
 CHICKEN_BULLET_WIDTH = 4
 CHICKEN_BULLET_HEIGHT = 4
 CHICKEN_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
+-- snowman
+SNOWMAN_SPRITE_PATH = "assets/sprites/snowman.png"
+SNOWMAN_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+SNOWMAN_SPEED = 25
+SNOWMAN_LIFE = 5
+SNOWMAN_BULLET_PATH = "assets/sprites/chestnut.png"
+SNOWMAN_BULLET_TIMER = 0.5
+SNOWMAN_BULLET_SPEED = 200
+SNOWMAN_BULLET_WIDTH = 4
+SNOWMAN_BULLET_HEIGHT = 4
+SNOWMAN_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
+-- yeti
+YETI_SPRITE_PATH = "assets/sprites/yeti.png"
+YETI_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+YETI_SPEED = 50
+YETI_LIFE = 3
+YETI_BULLET_PATH = "assets/sprites/blood.png"
+YETI_BULLET_TIMER = 1.5
+YETI_BULLET_SPEED = 100
+YETI_BULLET_WIDTH = 2
+YETI_BULLET_HEIGHT = 8
+YETI_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"

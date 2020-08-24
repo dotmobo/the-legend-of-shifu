@@ -9,6 +9,9 @@ function getRandomEnemy(x, y)
     -- forest map with tree and chicken
     elseif MapType == 3 then
         randomType = math.random(5, 6)
+    -- snow map with snowmap and yeti
+    elseif MapType == 4 then
+        randomType = math.random(7, 8)
     end
     -- return the right monster
     if randomType == 1 then
@@ -23,6 +26,10 @@ function getRandomEnemy(x, y)
         return getTree(x, y)
     elseif randomType == 6 then
         return getChicken(x, y)
+    elseif randomType == 7 then
+        return getSnowman(x, y)
+    elseif randomType == 8 then
+        return getYeti(x, y)
     end
 end
 
@@ -239,5 +246,77 @@ function getChicken(x, y)
     enemy.bulletSpeed = CHICKEN_BULLET_SPEED
     enemy.bulletWidth = CHICKEN_BULLET_WIDTH
     enemy.bulletHeight = CHICKEN_BULLET_HEIGHT
+    return enemy
+end
+
+function getSnowman(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(SNOWMAN_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-1'), 0.5),
+        die = Anim8.newAnimation(enemy.grid('1-2','2-2'), 0.25)
+    }
+    enemy.width = GAME_SPRITE_SIZE
+    enemy.height = GAME_SPRITE_SIZE
+    enemy.speed = SNOWMAN_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(SNOWMAN_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = SNOWMAN_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(SNOWMAN_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(SNOWMAN_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = SNOWMAN_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = SNOWMAN_BULLET_SPEED
+    enemy.bulletWidth = SNOWMAN_BULLET_WIDTH
+    enemy.bulletHeight = SNOWMAN_BULLET_HEIGHT
+    return enemy
+end
+
+function getYeti(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(YETI_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-1'), 0.5),
+        die = Anim8.newAnimation(enemy.grid('1-2','2-2'), 0.25)
+    }
+    enemy.width = GAME_SPRITE_SIZE
+    enemy.height = GAME_SPRITE_SIZE
+    enemy.speed = YETI_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(YETI_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = YETI_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(YETI_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(YETI_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = YETI_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = YETI_BULLET_SPEED
+    enemy.bulletWidth = YETI_BULLET_WIDTH
+    enemy.bulletHeight = YETI_BULLET_HEIGHT
     return enemy
 end
