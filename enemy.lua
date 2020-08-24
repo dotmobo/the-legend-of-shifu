@@ -1,5 +1,6 @@
 require('levels')
 require('enemyTypes')
+require('bullet')
 
 local enemiesAliveNumber
 
@@ -17,7 +18,7 @@ function initEnemies(layer, playerLayer)
 
     enemiesAliveNumber = enemiesNum
     loadEnemies(layer, enemies)
-    updateEnemies(layer, enemies, playerLayer.player)
+    updateEnemies(layer, enemies, playerLayer)
     drawEnemies(layer, enemies)
 
 end
@@ -39,7 +40,7 @@ function loadEnemies(layer, enemies)
     end
 end
 
-function updateEnemies(layer, enemies, player)
+function updateEnemies(layer, enemies, playerLayer)
     local enemyFilter = function(item, other)
 		if other.isPlayer then
 			return "touch"
@@ -68,35 +69,6 @@ function updateEnemies(layer, enemies, player)
 		local actualX, actualY, cols, len = World:move(enemy, goalX, goalY, enemyFilter)
 		enemy.x, enemy.y = actualX, actualY
 		enemyCollide(cols, len)
-    end
-
-    local bulletFilter = function(item, other)
-		return "touch"
-	end
-
-	local bulletCollide = function(cols, len, bullets, index, bullet)
-		-- deal with the collisions
-		for i=1,len do
-			print('bullet collided with ' .. tostring(cols[i].type))
-			if cols[i].type=='touch' then
-				if cols[i].other.isPlayer then
-					print(cols[i].other.life)
-					cols[i].other.hitted = true
-					cols[i].other.hittedTime = 1
-					cols[i].other.life = cols[i].other.life - 1
-					cols[i].other.hitSound:play()
-				end
-				World:remove(bullet)
-				table.remove(bullets, index)
-				break
-			end
-		end
-	end
-
-	local moveBullet = function(bullets, index, bullet, goalX, goalY)
-		local actualX, actualY, cols, len = World:move(bullet, goalX, goalY, bulletFilter)
-		bullet.x, bullet.y = actualX, actualY
-		bulletCollide(cols, len, bullets, index, bullet)
     end
 
     local createBullet = function(enemy, move)
@@ -179,7 +151,7 @@ function updateEnemies(layer, enemies, player)
                 if self.enemies[index]['bullets'] ~= nil then
                     self.enemies[index].bulletCurrentShootTimer = self.enemies[index].bulletCurrentShootTimer + dt
                     if self.enemies[index].bulletCurrentShootTimer > self.enemies[index].bulletShootTimer then
-                        if player.y <  self.enemies[index].y then
+                        if playerLayer.player.y <  self.enemies[index].y then
                             local bullet = createBullet(self.enemies[index], "up")
                         else
                             local bullet = createBullet(self.enemies[index], "down")
@@ -189,13 +161,13 @@ function updateEnemies(layer, enemies, player)
                     -- move bullet
                     for bulletIndex, bullet in ipairs(self.enemies[index].bullets) do
                         if bullet.move == bullet.moves.down then
-                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x, bullet.y + self.enemies[index].bulletSpeed * dt)
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x, bullet.y + self.enemies[index].bulletSpeed * dt, 'isPlayer')
                         elseif bullet.move == bullet.moves.left then
-                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x - self.enemies[index].bulletSpeed * dt, bullet.y)
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x - self.enemies[index].bulletSpeed * dt, bullet.y, 'isPlayer')
                         elseif bullet.move == bullet.moves.right then
-                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x + self.enemies[index].bulletSpeed * dt, bullet.y)
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x + self.enemies[index].bulletSpeed * dt, bullet.y, 'isPlayer')
                         else
-                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x, bullet.y - self.enemies[index].bulletSpeed * dt)
+                            moveBullet(self.enemies[index].bullets, bulletIndex, bullet, bullet.x, bullet.y - self.enemies[index].bulletSpeed * dt, 'isPlayer')
                         end
                     end
                 end
@@ -206,7 +178,7 @@ function updateEnemies(layer, enemies, player)
                         Gamestate.switch(Win)
                     else
                         Level = Level + 1
-                        initEnemies(layer)
+                        initEnemies(layer, playerLayer)
                     end
                 end
             end

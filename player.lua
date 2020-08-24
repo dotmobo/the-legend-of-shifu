@@ -93,35 +93,6 @@ function updatePlayer(layer)
 		playerCollide(cols, len)
 	end
 
-	local bulletFilter = function(item, other)
-		return "touch"
-	end
-
-	local bulletCollide = function(cols, len, bullets, index, bullet)
-		-- deal with the collisions
-		for i=1,len do
-			print('bullet collided with ' .. tostring(cols[i].type))
-			if cols[i].type=='touch' then
-				if cols[i].other.isEnemy then
-					print(cols[i].other.life)
-					cols[i].other.hitted = true
-					cols[i].other.hittedTime = 1
-					cols[i].other.life = cols[i].other.life - 1
-					cols[i].other.hitSound:play()
-				end
-				World:remove(bullet)
-				table.remove(bullets, index)
-				break
-			end
-		end
-	end
-
-	local moveBullet = function(bullets, index, bullet, goalX, goalY)
-		local actualX, actualY, cols, len = World:move(bullet, goalX, goalY, bulletFilter)
-		bullet.x, bullet.y = actualX, actualY
-		bulletCollide(cols, len, bullets, index, bullet)
-	end
-
 	local createBullet = function(bullets, move)
 		layer.player.bulletSound:play()
 		local bullet = {}
@@ -222,13 +193,13 @@ function updatePlayer(layer)
 		-- move bullet
 		for index, bullet in ipairs(self.player.bullets) do
 			if bullet.move == bullet.moves.down then
-				moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y + BULLET_SPEED * dt)
+				moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y + BULLET_SPEED * dt, 'isEnemy')
 			elseif bullet.move == bullet.moves.left then
-				moveBullet(self.player.bullets, index, bullet, bullet.x - BULLET_SPEED * dt, bullet.y)
+				moveBullet(self.player.bullets, index, bullet, bullet.x - BULLET_SPEED * dt, bullet.y, 'isEnemy')
 			elseif bullet.move == bullet.moves.right then
-				moveBullet(self.player.bullets, index, bullet, bullet.x + BULLET_SPEED * dt, bullet.y)
+				moveBullet(self.player.bullets, index, bullet, bullet.x + BULLET_SPEED * dt, bullet.y, 'isEnemy')
 			else
-				moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y - BULLET_SPEED * dt)
+				moveBullet(self.player.bullets, index, bullet, bullet.x, bullet.y - BULLET_SPEED * dt, 'isEnemy')
 			end
 		end
 	end
