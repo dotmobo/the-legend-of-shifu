@@ -1,6 +1,5 @@
 require('levels')
 require('enemyTypes')
-require('bullet')
 
 local enemiesAliveNumber
 

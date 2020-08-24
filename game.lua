@@ -1,4 +1,4 @@
-
+require('bullet')
 require('player')
 require('enemy')
 
