@@ -43,6 +43,8 @@ function loadPlayer(layer, player)
 		bullets = {},
 		bulletSprite = bulletSprite,
 		bulletSound = bulletSound,
+		bulletWidth = BULLET_WIDTH,
+		bulletHeight = BULLET_HEIGHT,
 		life = PLAYER_LIFE,
 		hitSound = hitSound,
 		hitted = false,
@@ -93,39 +95,6 @@ function updatePlayer(layer)
 		playerCollide(cols, len)
 	end
 
-	local createBullet = function(bullets, move)
-		layer.player.bulletSound:play()
-		local bullet = {}
-		bullet.width = BULLET_WIDTH
-		bullet.height = BULLET_HEIGHT
-		bullet.moves = {
-			stop = "stop",
-			up = "up",
-			down = "down",
-			left = "left",
-			right = "right"
-		}
-		if move == "up" then
-			bullet.move = bullet.moves.up
-			bullet.x = layer.player.x + layer.player.width / 2
-			bullet.y = layer.player.y - bullet.height
-		elseif move == "down" then
-			bullet.move = bullet.moves.down
-			bullet.x = layer.player.x + layer.player.width / 2
-			bullet.y = layer.player.y + layer.player.height
-		elseif move == "left" then
-			bullet.move = bullet.moves.left
-			bullet.x = layer.player.x - bullet.width
-			bullet.y = layer.player.y + layer.player.height / 2
-		elseif move == "right" then
-			bullet.move = bullet.moves.right
-			bullet.x = layer.player.x + layer.player.width
-			bullet.y = layer.player.y + layer.player.height / 2
-		end
-		World:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
-		table.insert(bullets, bullet)
-		return bullet
-	end
 
 	currentShootTimer = 0
 	layer.update = function(self, dt)
@@ -177,16 +146,16 @@ function updatePlayer(layer)
 		currentShootTimer = currentShootTimer + dt
 		if currentShootTimer > BULLET_TIMER then
 			if love.keyboard.isDown("z", "w") or (Joystick and (Joystick:isGamepadDown('y') or Joystick:getGamepadAxis('righty') <= -0.75)) then
-				local bullet = createBullet(self.player.bullets, "up")
+				local bullet = createBullet(self.player, "up")
 				currentShootTimer = 0
 			elseif love.keyboard.isDown("s") or (Joystick and (Joystick:isGamepadDown('a') or Joystick:getGamepadAxis('righty') >= 0.75)) then
-				local bullet = createBullet(self.player.bullets, "down")
+				local bullet = createBullet(self.player, "down")
 				currentShootTimer = 0
 			elseif love.keyboard.isDown("a", "q") or (Joystick and (Joystick:isGamepadDown('x') or Joystick:getGamepadAxis('rightx') <= -0.75)) then
-				local bullet = createBullet(self.player.bullets, "left")
+				local bullet = createBullet(self.player, "left")
 				currentShootTimer = 0
 			elseif love.keyboard.isDown("d") or (Joystick and (Joystick:isGamepadDown('b') or Joystick:getGamepadAxis('rightx') >= 0.75)) then
-				local bullet = createBullet(self.player.bullets, "right")
+				local bullet = createBullet(self.player, "right")
 				currentShootTimer = 0
 			end
 		end

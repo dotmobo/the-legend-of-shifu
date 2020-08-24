@@ -71,40 +71,6 @@ function updateEnemies(layer, enemies, playerLayer)
 		enemyCollide(cols, len)
     end
 
-    local createBullet = function(enemy, move)
-		enemy.bulletSound:play()
-		local bullet = {}
-		bullet.width = enemy.bulletWidth
-		bullet.height = enemy.bulletHeight
-		bullet.moves = {
-			stop = "stop",
-			up = "up",
-			down = "down",
-			left = "left",
-			right = "right"
-		}
-		if move == "up" then
-			bullet.move = bullet.moves.up
-			bullet.x = enemy.x + enemy.width / 2
-			bullet.y = enemy.y - bullet.height
-		elseif move == "down" then
-			bullet.move = bullet.moves.down
-			bullet.x = enemy.x + enemy.width / 2
-			bullet.y = enemy.y + enemy.height
-		elseif move == "left" then
-			bullet.move = bullet.moves.left
-			bullet.x = enemy.x - bullet.width
-			bullet.y = enemy.y + enemy.height / 2
-		elseif move == "right" then
-			bullet.move = bullet.moves.right
-			bullet.x = enemy.x + enemy.width
-			bullet.y = enemy.y + enemy.height / 2
-		end
-		World:add(bullet, bullet.x, bullet.y, bullet.width, bullet.height)
-		table.insert(enemy.bullets, bullet)
-		return bullet
-	end
-
     layer.update = function(self, dt)
         for index, enemy in ipairs(enemies) do
             if self.enemies[index] and not self.enemies[index].removed then
