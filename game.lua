@@ -27,7 +27,7 @@ function Game:enter()
 	local enemiesLayer = Map:addCustomLayer("enemies", 6)
 	-- init player and enemies
 	initPlayer(playerLayer)
-	initEnemies(enemiesLayer)
+	initEnemies(enemiesLayer, playerLayer)
 end
 
 function Game:keyreleased(key, code)

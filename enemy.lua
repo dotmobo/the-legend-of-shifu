@@ -3,7 +3,7 @@ require('enemyTypes')
 
 local enemiesAliveNumber
 
-function initEnemies(layer)
+function initEnemies(layer, playerLayer)
     local enemies, enemiesNum = getLevelEnemies()
     -- local maxEnemies = 7
     -- local enemiesNum = math.floor(math.random(Level, GAME_DIFFICULTY*Level % maxEnemies))
@@ -17,7 +17,7 @@ function initEnemies(layer)
 
     enemiesAliveNumber = enemiesNum
     loadEnemies(layer, enemies)
-    updateEnemies(layer, enemies)
+    updateEnemies(layer, enemies, playerLayer.player)
     drawEnemies(layer, enemies)
 
 end
@@ -39,7 +39,7 @@ function loadEnemies(layer, enemies)
     end
 end
 
-function updateEnemies(layer, enemies)
+function updateEnemies(layer, enemies, player)
     local enemyFilter = function(item, other)
 		if other.isPlayer then
 			return "touch"
@@ -98,7 +98,7 @@ function updateEnemies(layer, enemies)
 		bullet.x, bullet.y = actualX, actualY
 		bulletCollide(cols, len, bullets, index, bullet)
     end
-    
+
     local createBullet = function(enemy, move)
 		enemy.bulletSound:play()
 		local bullet = {}
@@ -179,7 +179,11 @@ function updateEnemies(layer, enemies)
                 if self.enemies[index]['bullets'] ~= nil then
                     self.enemies[index].bulletCurrentShootTimer = self.enemies[index].bulletCurrentShootTimer + dt
                     if self.enemies[index].bulletCurrentShootTimer > self.enemies[index].bulletShootTimer then
-                        local bullet = createBullet(self.enemies[index], "down")
+                        if player.y <  self.enemies[index].y then
+                            local bullet = createBullet(self.enemies[index], "up")
+                        else
+                            local bullet = createBullet(self.enemies[index], "down")
+                        end
                         self.enemies[index].bulletCurrentShootTimer = 0
                     end
                     -- move bullet

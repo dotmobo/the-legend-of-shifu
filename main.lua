@@ -11,7 +11,6 @@ Level = nil
 World = nil
 Map = nil
 MapType = nil
-EnemiesLayer = nil
 -- game state
 Menu = {}
 Game = {}
