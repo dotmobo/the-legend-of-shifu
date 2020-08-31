@@ -12,7 +12,9 @@ function Win:draw()
 end
 
 function Win:keyreleased(key, code)
-    if key == 'return' then
+	if key == 'return' then
+		WorldType = 1
+		Score = 0
         Gamestate.switch(Game)
 	end
 	if key == "escape" then

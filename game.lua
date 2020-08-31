@@ -5,22 +5,20 @@ require('enemy')
 local playerLayer
 
 function Game:enter()
-	-- reset score
-	Score = 0
 	Level = 1
     -- load world
 	World = Bump.newWorld()
-	local randomWorld = math.random(1,4)
-	if randomWorld == 1 then
+	-- local randomWorld = math.random(1,4)
+	if WorldType == 1 then
 		Map = Sti(GAME_WORLD1_PATH, {GAME_COLLISION_MODE})
 		MapType = 1
-	elseif randomWorld == 2 then
+	elseif WorldType == 2 then
 		Map = Sti(GAME_WORLD2_PATH, {GAME_COLLISION_MODE})
 		MapType = 2
-	elseif randomWorld == 3 then
+	elseif WorldType == 3 then
 		Map = Sti(GAME_WORLD3_PATH, {GAME_COLLISION_MODE})
 		MapType = 3
-	elseif randomWorld == 4 then
+	elseif WorldType == 4 then
 		Map = Sti(GAME_WORLD4_PATH, {GAME_COLLISION_MODE})
 		MapType = 4
 	end

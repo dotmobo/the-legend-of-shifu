@@ -2,6 +2,8 @@ local icon
 
 function Menu:enter()
 	icon = love.graphics.newImage(GAME_ICON_PATH)
+	WorldType = 1
+	Score = 0
 end
 
 function Menu:draw()
