@@ -1,11 +1,15 @@
 local icon
 
 function Lose:enter()
+	background = love.graphics.newImage(GAME_WORLD1_IMG_PATH)
 	icon = love.graphics.newImage(GAME_ICON_PATH)
 	Music:stop()
 end
 
 function Lose:draw()
+	love.graphics.setColor(255, 255, 255, 0.25)
+	love.graphics.draw(background, (WIN_WIDTH-(11*GAME_SPRITE_SIZE*GAME_SCALE))/2, (WIN_HEIGHT-(9*GAME_SPRITE_SIZE*GAME_SCALE))/2, 0, 1, 1)
+	love.graphics.setColor(255, 255, 255, 1)
 	love.graphics.draw(icon, WIN_WIDTH/3, WIN_HEIGHT/3)
 	love.graphics.printf({{255,255,255,1}, 'Defeat ! Score: '..Score},0,WIN_HEIGHT/3,WIN_WIDTH,"center")
 	love.graphics.printf({{255,255,255,1}, "Press Enter or Start to retry"},0,WIN_HEIGHT/3+64,WIN_WIDTH,"center")
