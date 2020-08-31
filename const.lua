@@ -18,6 +18,7 @@ GAME_WORLD4_PATH = "assets/game/levels/level4.lua"
 GAME_HITTED_SPEED = 5
 GAME_DIFFICULTY = 2
 GAME_MUSIC_PATH = "assets/sounds/boss1mix.mp3"
+GAME_MUSIC_VOLUME = 0.05
 -- player
 PLAYER_SPRITE_PATH = "assets/sprites/shifu.png"
 PLAYER_HIT_SOUND_PATH = "assets/sounds/262313__steffcaffrey__cat-meow2.wav"

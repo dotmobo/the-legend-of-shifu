@@ -27,7 +27,7 @@ function love.load()
 	math.randomseed(os.time())
 	-- music
 	Music = love.audio.newSource(GAME_MUSIC_PATH, "static")
-	Music:setVolume(0.05)
+	Music:setVolume(GAME_MUSIC_VOLUME)
 	Music:setLooping(true)
 	-- menu
 	Gamestate.registerEvents()
