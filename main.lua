@@ -25,6 +25,10 @@ require('win')
 function love.load()
 	-- random seed
 	math.randomseed(os.time())
+	-- music
+	Music = love.audio.newSource(GAME_MUSIC_PATH, "static")
+	Music:setVolume(0.05)
+	Music:setLooping(true)
 	-- menu
 	Gamestate.registerEvents()
     Gamestate.switch(Menu)

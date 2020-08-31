@@ -29,6 +29,7 @@ function Game:enter()
 	-- init player and enemies
 	initPlayer(playerLayer)
 	initEnemies(enemiesLayer, playerLayer)
+	Music:play()
 end
 
 function Game:keyreleased(key, code)

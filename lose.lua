@@ -2,6 +2,7 @@ local icon
 
 function Lose:enter()
 	icon = love.graphics.newImage(GAME_ICON_PATH)
+	Music:stop()
 end
 
 function Lose:draw()

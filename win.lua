@@ -2,6 +2,7 @@ local icon
 
 function Win:enter()
 	icon = love.graphics.newImage(GAME_ICON_PATH)
+	Music:stop()
 end
 
 function Win:draw()
