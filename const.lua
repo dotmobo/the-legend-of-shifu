@@ -10,6 +10,7 @@ GAME_FONT_SIZE = 18
 GAME_SCALE = 2
 GAME_SPRITE_SIZE = 32
 GAME_COLLISION_MODE = "bump"
+GAME_WORLD1_IMG_PATH = "assets/game/levels/level1.png"
 GAME_WORLD1_PATH = "assets/game/levels/level1.lua"
 GAME_WORLD2_PATH = "assets/game/levels/level2.lua"
 GAME_WORLD3_PATH = "assets/game/levels/level3.lua"
