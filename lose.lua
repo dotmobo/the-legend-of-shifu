@@ -29,6 +29,8 @@ end
 
 function Lose:update(dt)
 	if Joystick and Joystick:isGamepadDown('start') then
+		WorldType = 1
+		Score = 0
 		Gamestate.switch(Game)
 	end
 	if Joystick and Joystick:isGamepadDown('back') then
