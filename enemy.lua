@@ -137,6 +137,11 @@ function updateEnemies(layer, enemies, playerLayer)
                     end
                 end
 
+                -- kill enemy if he is outside the map (spawn bug)
+                if self.enemies[index].x <= 0 or self.enemies[index].x >= MAP_WIDTH or self.enemies[index].y <= 0 or self.enemies[index].y >= MAP_HEIGHT then
+                    self.enemies[index].life = 0
+                end
+
                 -- if not enemies, read enemies
                 if enemiesAliveNumber ==0 then
                     if Level == 5 and WorldType == 1 then
