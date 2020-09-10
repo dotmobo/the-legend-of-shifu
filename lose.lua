@@ -20,6 +20,7 @@ function Lose:keyreleased(key, code)
 	if key == 'return' then
 		WorldType = 1
 		Score = 0
+		Level = 1
         Gamestate.switch(Game)
 	end
 	if key == "escape" then
@@ -31,6 +32,7 @@ function Lose:update(dt)
 	if Joystick and Joystick:isGamepadDown('start') then
 		WorldType = 1
 		Score = 0
+		Level = 1
 		Gamestate.switch(Game)
 	end
 	if Joystick and Joystick:isGamepadDown('back') then

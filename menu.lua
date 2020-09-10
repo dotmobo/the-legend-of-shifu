@@ -5,6 +5,7 @@ function Menu:enter()
 	icon = love.graphics.newImage(GAME_ICON_PATH)
 	WorldType = 1
 	Score = 0
+	Level = 1
 	Music:stop()
 end
 

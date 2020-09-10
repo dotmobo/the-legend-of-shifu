@@ -146,17 +146,21 @@ function updateEnemies(layer, enemies, playerLayer)
                 if enemiesAliveNumber ==0 then
                     if Level == 5 and WorldType == 1 then
                         WorldType = 2
-                        Gamestate.switch(Game)
+                        Level = 1
+                        Gamestate.switch(Transition)
                     elseif Level == 5 and WorldType == 2 then
                         WorldType = 3
-                        Gamestate.switch(Game)
+                        Level = 1
+                        Gamestate.switch(Transition)
                     elseif Level == 5 and WorldType == 3 then
                         WorldType = 4
-                        Gamestate.switch(Game)
+                        Level = 1
+                        Gamestate.switch(Transition)
                     elseif Level == 5 and WorldType == 4 then
                         Gamestate.switch(Win)
                     else
                         Level = Level + 1
+                        Gamestate.switch(Transition)
                         playerLayer.player.gotToSpawn()
                         initEnemies(layer, playerLayer)
                     end

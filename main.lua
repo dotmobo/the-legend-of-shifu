@@ -17,10 +17,12 @@ Menu = {}
 Game = {}
 Lose = {}
 Win = {}
+Transition = {}
 require('menu')
 require('game')
 require('lose')
 require('win')
+require('transition')
 
 function love.load()
 	-- random seed

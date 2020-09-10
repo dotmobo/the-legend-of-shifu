@@ -5,7 +5,6 @@ require('enemy')
 local playerLayer
 
 function Game:enter()
-	Level = 1
     -- load world
 	World = Bump.newWorld()
 	-- local randomWorld = math.random(1,4)
