@@ -31,7 +31,7 @@ PLAYER_SPRITE_PATH = "assets/sprites/shifu.png"
 PLAYER_HIT_SOUND_PATH = "assets/sounds/262313__steffcaffrey__cat-meow2.wav"
 PLAYER_OBJECT_NAME = "player"
 PLAYER_SPEED = 110
-PLAYER_LIFE = 10
+PLAYER_LIFE = 20
 PLAYER_WEAPON_PATH = "assets/sprites/pee.png"
 -- bullet
 BULLET_TIMER = 0.4
@@ -138,3 +138,14 @@ EVILCHOCO_BULLET_SPEED = 125
 EVILCHOCO_BULLET_WIDTH = 8
 EVILCHOCO_BULLET_HEIGHT = 32
 EVILCHOCO_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
+-- evil minette
+EVILMINETTE_SPRITE_PATH = "assets/sprites/evil_minette.png"
+EVILMINETTE_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILMINETTE_SPEED = 100
+EVILMINETTE_LIFE = 15
+EVILMINETTE_BULLET_PATH = "assets/sprites/evil_blood.png"
+EVILMINETTE_BULLET_TIMER = 1
+EVILMINETTE_BULLET_SPEED = 125
+EVILMINETTE_BULLET_WIDTH = 8
+EVILMINETTE_BULLET_HEIGHT = 32
+EVILMINETTE_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
