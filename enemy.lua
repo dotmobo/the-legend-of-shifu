@@ -157,6 +157,7 @@ function updateEnemies(layer, enemies, playerLayer)
                         Gamestate.switch(Win)
                     else
                         Level = Level + 1
+                        playerLayer.player.gotToSpawn()
                         initEnemies(layer, playerLayer)
                     end
                 end

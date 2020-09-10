@@ -19,6 +19,34 @@ function getPlayerSpawn()
     return player
 end
 
+function playerFilter(item, other)
+	if other.isEnemy then
+		return "touch"
+	else
+		return "slide"
+	end
+end
+
+function playerCollide(cols, len)
+	-- deal with the collisions
+	-- TODO invinsibility frame before
+	-- for i=1,len do
+	-- 	print('player collided with ' .. tostring(cols[i].type))
+	-- 	if cols[i].type == 'touch' then
+	-- 		cols[i].item.hitted = true
+	-- 		cols[i].item.hittedTime = 1
+	-- 		cols[i].item.life = cols[i].item.life - 1
+	-- 		cols[i].item.hitSound:play()
+	-- 	end
+	-- end
+end
+
+function movePlayer(player, goalX, goalY)
+	local actualX, actualY, cols, len = World:move(player, goalX, goalY, playerFilter)
+	player.x, player.y = actualX, actualY
+	playerCollide(cols, len)
+end
+
 -- creer le jouer dans le layer
 function loadPlayer(layer, player)
 	local sprite = love.graphics.newImage(PLAYER_SPRITE_PATH)
@@ -37,6 +65,8 @@ function loadPlayer(layer, player)
 		},
 		x      = player.x,
 		y      = player.y,
+		spawnX      = player.x,
+		spawnY      = player.y,
 		width = GAME_SPRITE_SIZE,
 		height = GAME_SPRITE_SIZE,
 		speed = PLAYER_SPEED,
@@ -60,41 +90,17 @@ function loadPlayer(layer, player)
 		-- ox     = sprite:getWidth() / 2,
 		-- oy     = sprite:getHeight() / 1.10
 	}
+	layer.player.gotToSpawn = function()
+		layer.player.x = layer.player.spawnX
+		layer.player.y = layer.player.spawnY
+		movePlayer(layer.player, layer.player.x, layer.player.y)
+	end
 	layer.player.animation = layer.player.animations.stop
 	layer.player.move = layer.player.moves.stop
 	World:add(layer.player, layer.player.x, layer.player.y, layer.player.width, layer.player.height)
 end
 
 function updatePlayer(layer)
-
-	local playerFilter = function(item, other)
-		if other.isEnemy then
-			return "touch"
-		else
-			return "slide"
-		end
-	end
-
-	local playerCollide = function(cols, len)
-		-- deal with the collisions
-		-- TODO invinsibility frame before
-		-- for i=1,len do
-		-- 	print('player collided with ' .. tostring(cols[i].type))
-		-- 	if cols[i].type == 'touch' then
-		-- 		cols[i].item.hitted = true
-		-- 		cols[i].item.hittedTime = 1
-		-- 		cols[i].item.life = cols[i].item.life - 1
-		-- 		cols[i].item.hitSound:play()
-		-- 	end
-		-- end
-	end
-
-	local movePlayer = function(player, goalX, goalY)
-		local actualX, actualY, cols, len = World:move(player, goalX, goalY, playerFilter)
-		player.x, player.y = actualX, actualY
-		playerCollide(cols, len)
-	end
-
 
 	currentShootTimer = 0
 	layer.update = function(self, dt)
