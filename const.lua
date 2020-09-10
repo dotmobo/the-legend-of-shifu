@@ -160,6 +160,17 @@ EVILBANE_BULLET_SPEED = 125
 EVILBANE_BULLET_WIDTH = 8
 EVILBANE_BULLET_HEIGHT = 32
 EVILBANE_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
+-- evil stella
+EVILSTELLA_SPRITE_PATH = "assets/sprites/evil_stella.png"
+EVILSTELLA_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILSTELLA_SPEED = 90
+EVILSTELLA_LIFE = 20
+EVILSTELLA_BULLET_PATH = "assets/sprites/evil_blood.png"
+EVILSTELLA_BULLET_TIMER = 0.75
+EVILSTELLA_BULLET_SPEED = 125
+EVILSTELLA_BULLET_WIDTH = 8
+EVILSTELLA_BULLET_HEIGHT = 32
+EVILSTELLA_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil cobinou
 EVILCOBINOU_SPRITE_PATH = "assets/sprites/evil_cobinou.png"
 EVILCOBINOU_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"

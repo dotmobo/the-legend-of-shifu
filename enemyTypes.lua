@@ -17,13 +17,13 @@ function getRandomEnemy(x, y)
         randomType = math.random(5, 6)
     -- boss
     elseif MapType == 3 and Level == 5 then
-        randomType = 12
+        randomType = 13
     -- snow map with snowmap and yeti
     elseif MapType == 4 and Level ~= 5 then
         randomType = math.random(7, 8)
     -- boss
     elseif MapType == 4 and Level == 5 then
-        randomType = 9
+        randomType = 12
     end
     -- return the right monster
     if randomType == 1 then
@@ -50,6 +50,8 @@ function getRandomEnemy(x, y)
         return getEvilBane(x, y)
     elseif randomType == 12 then
         return getEvilCobinou(x, y)
+    elseif randomType == 13 then
+        return getEvilStella(x, y)
     end
 end
 
@@ -482,5 +484,41 @@ function getEvilCobinou(x, y)
     enemy.bulletSpeed = EVILCOBINOU_BULLET_SPEED
     enemy.bulletWidth = EVILCOBINOU_BULLET_WIDTH
     enemy.bulletHeight = EVILCOBINOU_BULLET_HEIGHT
+    return enemy
+end
+
+function getEvilStella(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(EVILSTELLA_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-2'), 0.25),
+        die = Anim8.newAnimation(enemy.grid('1-2','3-3'), 0.75)
+    }
+    enemy.width = GAME_BOSS_SPRITE_SIZE
+    enemy.height = GAME_BOSS_SPRITE_SIZE
+    enemy.speed = EVILSTELLA_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(EVILSTELLA_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = EVILSTELLA_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(EVILSTELLA_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(EVILSTELLA_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = EVILSTELLA_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = EVILSTELLA_BULLET_SPEED
+    enemy.bulletWidth = EVILSTELLA_BULLET_WIDTH
+    enemy.bulletHeight = EVILSTELLA_BULLET_HEIGHT
     return enemy
 end
