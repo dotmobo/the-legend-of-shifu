@@ -1,7 +1,7 @@
 return {
-  version = "1.2",
+  version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.3.4",
+  tiledversion = "1.4.2",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 11,
@@ -23,6 +23,7 @@ return {
       image = "../../tilesets/tilesets/tileset2.png",
       imagewidth = 256,
       imageheight = 256,
+      objectalignment = "unspecified",
       tileoffset = {
         x = 0,
         y = 0
@@ -156,12 +157,12 @@ return {
   layers = {
     {
       type = "tilelayer",
-      id = 1,
-      name = "ground",
       x = 0,
       y = 0,
       width = 11,
       height = 9,
+      id = 1,
+      name = "ground",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -182,12 +183,12 @@ return {
     },
     {
       type = "tilelayer",
-      id = 2,
-      name = "subground",
       x = 0,
       y = 0,
       width = 11,
       height = 9,
+      id = 2,
+      name = "subground",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -208,12 +209,12 @@ return {
     },
     {
       type = "tilelayer",
-      id = 3,
-      name = "block",
       x = 0,
       y = 0,
       width = 11,
       height = 9,
+      id = 3,
+      name = "block",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -222,25 +223,25 @@ return {
       encoding = "lua",
       data = {
         35, 39, 39, 40, 0, 0, 35, 39, 39, 39, 40,
-        43, 0, 0, 59, 39, 39, 64, 0, 0, 0, 56,
+        43, 0, 0, 59, 39, 39, 64, 47, 0, 0, 56,
         43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56,
-        43, 0, 0, 0, 0, 0, 47, 0, 0, 0, 56,
         43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56,
-        43, 0, 53, 0, 0, 0, 0, 0, 0, 35, 64,
-        43, 0, 0, 0, 0, 0, 0, 0, 0, 56, 0,
+        43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56,
+        43, 0, 0, 0, 0, 0, 0, 0, 0, 35, 64,
+        43, 53, 0, 0, 0, 0, 0, 0, 0, 56, 0,
         43, 0, 0, 0, 0, 0, 0, 0, 54, 56, 0,
         59, 60, 60, 60, 60, 60, 60, 62, 60, 64, 0
       }
     },
     {
       type = "objectgroup",
+      draworder = "topdown",
       id = 4,
       name = "player",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      draworder = "topdown",
       properties = {},
       objects = {
         {

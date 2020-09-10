@@ -1,7 +1,7 @@
 return {
-  version = "1.2",
+  version = "1.4",
   luaversion = "5.1",
-  tiledversion = "1.3.4",
+  tiledversion = "1.4.2",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 11,
@@ -23,6 +23,7 @@ return {
       image = "../../tilesets/tilesets/tileset3.png",
       imagewidth = 256,
       imageheight = 256,
+      objectalignment = "unspecified",
       tileoffset = {
         x = 0,
         y = 0
@@ -150,12 +151,12 @@ return {
   layers = {
     {
       type = "tilelayer",
-      id = 1,
-      name = "ground",
       x = 0,
       y = 0,
       width = 11,
       height = 9,
+      id = 1,
+      name = "ground",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -176,12 +177,12 @@ return {
     },
     {
       type = "tilelayer",
-      id = 2,
-      name = "subground",
       x = 0,
       y = 0,
       width = 11,
       height = 9,
+      id = 2,
+      name = "subground",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -194,7 +195,7 @@ return {
         0, 44, 44, 0, 0, 0, 0, 0, 0, 53, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 53, 45, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 45, 53, 0,
-        0, 0, 46, 0, 0, 0, 0, 0, 53, 45, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 53, 45, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 52, 0, 0, 45, 47,
         0, 0, 0, 0, 0, 0, 0, 0, 45, 53, 44
@@ -202,12 +203,12 @@ return {
     },
     {
       type = "tilelayer",
-      id = 3,
-      name = "blocks",
       x = 0,
       y = 0,
       width = 11,
       height = 9,
+      id = 3,
+      name = "blocks",
       visible = true,
       opacity = 1,
       offsetx = 0,
@@ -216,25 +217,25 @@ return {
       encoding = "lua",
       data = {
         35, 39, 39, 39, 39, 39, 39, 39, 39, 38, 40,
-        43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48,
+        43, 0, 0, 0, 0, 47, 0, 0, 0, 0, 48,
         43, 0, 0, 0, 0, 0, 0, 0, 46, 0, 48,
         43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48,
-        43, 0, 0, 0, 0, 47, 0, 0, 0, 0, 48,
+        43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48,
         43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56,
-        43, 0, 0, 0, 0, 0, 0, 0, 35, 60, 64,
+        43, 46, 0, 0, 0, 0, 0, 0, 35, 60, 64,
         43, 0, 0, 0, 0, 0, 0, 35, 64, 0, 0,
         59, 62, 60, 60, 60, 60, 60, 64, 0, 0, 0
       }
     },
     {
       type = "objectgroup",
+      draworder = "topdown",
       id = 4,
       name = "player",
       visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
-      draworder = "topdown",
       properties = {},
       objects = {
         {
