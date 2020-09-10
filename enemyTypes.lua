@@ -11,7 +11,7 @@ function getRandomEnemy(x, y)
         randomType = math.random(3, 4)
     -- boss
     elseif MapType == 2 and Level == 5 then
-        randomType = 9
+        randomType = 11
     -- forest map with tree and chicken
     elseif MapType == 3 and Level ~= 5 then
         randomType = math.random(5, 6)
@@ -46,6 +46,8 @@ function getRandomEnemy(x, y)
         return getEvilChoco(x, y)
     elseif randomType == 10 then
         return getEvilMinette(x, y)
+    elseif randomType == 11 then
+        return getEvilBane(x, y)
     end
 end
 
@@ -406,5 +408,41 @@ function getEvilMinette(x, y)
     enemy.bulletSpeed = EVILMINETTE_BULLET_SPEED
     enemy.bulletWidth = EVILMINETTE_BULLET_WIDTH
     enemy.bulletHeight = EVILMINETTE_BULLET_HEIGHT
+    return enemy
+end
+
+function getEvilBane(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(EVILBANE_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-2'), 0.25),
+        die = Anim8.newAnimation(enemy.grid('1-2','3-3'), 0.75)
+    }
+    enemy.width = GAME_BOSS_SPRITE_SIZE
+    enemy.height = GAME_BOSS_SPRITE_SIZE
+    enemy.speed = EVILBANE_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(EVILBANE_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = EVILBANE_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(EVILBANE_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(EVILBANE_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = EVILBANE_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = EVILBANE_BULLET_SPEED
+    enemy.bulletWidth = EVILBANE_BULLET_WIDTH
+    enemy.bulletHeight = EVILBANE_BULLET_HEIGHT
     return enemy
 end
