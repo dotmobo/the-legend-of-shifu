@@ -17,7 +17,7 @@ function getRandomEnemy(x, y)
         randomType = math.random(5, 6)
     -- boss
     elseif MapType == 3 and Level == 5 then
-        randomType = 9
+        randomType = 12
     -- snow map with snowmap and yeti
     elseif MapType == 4 and Level ~= 5 then
         randomType = math.random(7, 8)
@@ -48,6 +48,8 @@ function getRandomEnemy(x, y)
         return getEvilMinette(x, y)
     elseif randomType == 11 then
         return getEvilBane(x, y)
+    elseif randomType == 12 then
+        return getEvilCobinou(x, y)
     end
 end
 
@@ -444,5 +446,41 @@ function getEvilBane(x, y)
     enemy.bulletSpeed = EVILBANE_BULLET_SPEED
     enemy.bulletWidth = EVILBANE_BULLET_WIDTH
     enemy.bulletHeight = EVILBANE_BULLET_HEIGHT
+    return enemy
+end
+
+function getEvilCobinou(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(EVILCOBINOU_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-2'), 0.25),
+        die = Anim8.newAnimation(enemy.grid('1-2','3-3'), 0.75)
+    }
+    enemy.width = GAME_BOSS_SPRITE_SIZE
+    enemy.height = GAME_BOSS_SPRITE_SIZE
+    enemy.speed = EVILCOBINOU_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(EVILCOBINOU_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = EVILCOBINOU_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(EVILCOBINOU_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(EVILCOBINOU_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = EVILCOBINOU_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = EVILCOBINOU_BULLET_SPEED
+    enemy.bulletWidth = EVILCOBINOU_BULLET_WIDTH
+    enemy.bulletHeight = EVILCOBINOU_BULLET_HEIGHT
     return enemy
 end

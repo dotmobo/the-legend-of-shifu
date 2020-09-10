@@ -130,8 +130,8 @@ YETI_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil choco
 EVILCHOCO_SPRITE_PATH = "assets/sprites/evil_choco.png"
 EVILCHOCO_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
-EVILCHOCO_SPEED = 75
-EVILCHOCO_LIFE = 30
+EVILCHOCO_SPEED = 60
+EVILCHOCO_LIFE = 50
 EVILCHOCO_BULLET_PATH = "assets/sprites/evil_blood.png"
 EVILCHOCO_BULLET_TIMER = 0.5
 EVILCHOCO_BULLET_SPEED = 125
@@ -160,3 +160,14 @@ EVILBANE_BULLET_SPEED = 125
 EVILBANE_BULLET_WIDTH = 8
 EVILBANE_BULLET_HEIGHT = 32
 EVILBANE_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
+-- evil cobinou
+EVILCOBINOU_SPRITE_PATH = "assets/sprites/evil_cobinou.png"
+EVILCOBINOU_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILCOBINOU_SPEED = 75
+EVILCOBINOU_LIFE = 30
+EVILCOBINOU_BULLET_PATH = "assets/sprites/evil_blood.png"
+EVILCOBINOU_BULLET_TIMER = 0.75
+EVILCOBINOU_BULLET_SPEED = 125
+EVILCOBINOU_BULLET_WIDTH = 8
+EVILCOBINOU_BULLET_HEIGHT = 32
+EVILCOBINOU_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
