@@ -346,6 +346,7 @@ end
 function getEvilChoco(x, y)
     local enemy = {}
     enemy.isEnemy = true
+    enemy.isBoss = true
     enemy.sprite = love.graphics.newImage(EVILCHOCO_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -357,6 +358,7 @@ function getEvilChoco(x, y)
     enemy.speed = EVILCHOCO_SPEED
     enemy.directionX = 1
     enemy.hitSound = love.audio.newSource(EVILCHOCO_HIT_SOUND_PATH, "static")
+    enemy.spawnSound = love.audio.newSource(EVILCHOCO_SPAWN_SOUND_PATH, "static")
     enemy.hitted = false
     enemy.hittedTime = 0
     enemy.moves = {
@@ -382,6 +384,7 @@ end
 function getEvilMinette(x, y)
     local enemy = {}
     enemy.isEnemy = true
+    enemy.isBoss = true
     enemy.sprite = love.graphics.newImage(EVILMINETTE_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -393,6 +396,7 @@ function getEvilMinette(x, y)
     enemy.speed = EVILMINETTE_SPEED
     enemy.directionX = 1
     enemy.hitSound = love.audio.newSource(EVILMINETTE_HIT_SOUND_PATH, "static")
+    enemy.spawnSound = love.audio.newSource(EVILMINETTE_SPAWN_SOUND_PATH, "static")
     enemy.hitted = false
     enemy.hittedTime = 0
     enemy.moves = {
@@ -418,6 +422,7 @@ end
 function getEvilBane(x, y)
     local enemy = {}
     enemy.isEnemy = true
+    enemy.isBoss = true
     enemy.sprite = love.graphics.newImage(EVILBANE_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -429,6 +434,7 @@ function getEvilBane(x, y)
     enemy.speed = EVILBANE_SPEED
     enemy.directionX = 1
     enemy.hitSound = love.audio.newSource(EVILBANE_HIT_SOUND_PATH, "static")
+    enemy.spawnSound = love.audio.newSource(EVILBANE_SPAWN_SOUND_PATH, "static")
     enemy.hitted = false
     enemy.hittedTime = 0
     enemy.moves = {
@@ -454,6 +460,7 @@ end
 function getEvilCobinou(x, y)
     local enemy = {}
     enemy.isEnemy = true
+    enemy.isBoss = true
     enemy.sprite = love.graphics.newImage(EVILCOBINOU_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -465,6 +472,7 @@ function getEvilCobinou(x, y)
     enemy.speed = EVILCOBINOU_SPEED
     enemy.directionX = 1
     enemy.hitSound = love.audio.newSource(EVILCOBINOU_HIT_SOUND_PATH, "static")
+    enemy.spawnSound = love.audio.newSource(EVILCOBINOU_SPAWN_SOUND_PATH, "static")
     enemy.hitted = false
     enemy.hittedTime = 0
     enemy.moves = {
@@ -490,6 +498,7 @@ end
 function getEvilStella(x, y)
     local enemy = {}
     enemy.isEnemy = true
+    enemy.isBoss = true
     enemy.sprite = love.graphics.newImage(EVILSTELLA_SPRITE_PATH)
     enemy.grid = Anim8.newGrid(GAME_BOSS_SPRITE_SIZE, GAME_BOSS_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
     enemy.animations = {
@@ -501,6 +510,7 @@ function getEvilStella(x, y)
     enemy.speed = EVILSTELLA_SPEED
     enemy.directionX = 1
     enemy.hitSound = love.audio.newSource(EVILSTELLA_HIT_SOUND_PATH, "static")
+    enemy.spawnSound = love.audio.newSource(EVILSTELLA_SPAWN_SOUND_PATH, "static")
     enemy.hitted = false
     enemy.hittedTime = 0
     enemy.moves = {

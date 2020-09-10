@@ -35,7 +35,9 @@ function loadEnemies(layer, enemies)
         layer.enemies[index].animation = layer.enemies[index].animations.stop
         layer.enemies[index].move = layer.enemies[index].moves.stop
         World:add(layer.enemies[index], layer.enemies[index].x, layer.enemies[index].y, layer.enemies[index].width, layer.enemies[index].height)
-
+        if layer.enemies[index].isBoss == true then
+            layer.enemies[index].spawnSound:play()
+        end
     end
 end
 

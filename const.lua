@@ -130,6 +130,7 @@ YETI_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil choco
 EVILCHOCO_SPRITE_PATH = "assets/sprites/evil_choco.png"
 EVILCHOCO_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILCHOCO_SPAWN_SOUND_PATH = "assets/sounds/522132__amnesia12__evil-demonic-laugh.mp3"
 EVILCHOCO_SPEED = 60
 EVILCHOCO_LIFE = 50
 EVILCHOCO_BULLET_PATH = "assets/sprites/evil_blood.png"
@@ -141,6 +142,7 @@ EVILCHOCO_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil minette
 EVILMINETTE_SPRITE_PATH = "assets/sprites/evil_minette.png"
 EVILMINETTE_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILMINETTE_SPAWN_SOUND_PATH = "assets/sounds/522132__amnesia12__evil-demonic-laugh.mp3"
 EVILMINETTE_SPEED = 100
 EVILMINETTE_LIFE = 15
 EVILMINETTE_BULLET_PATH = "assets/sprites/evil_blood.png"
@@ -152,6 +154,7 @@ EVILMINETTE_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil bane
 EVILBANE_SPRITE_PATH = "assets/sprites/evil_bane.png"
 EVILBANE_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILBANE_SPAWN_SOUND_PATH = "assets/sounds/522132__amnesia12__evil-demonic-laugh.mp3"
 EVILBANE_SPEED = 80
 EVILBANE_LIFE = 20
 EVILBANE_BULLET_PATH = "assets/sprites/evil_blood.png"
@@ -163,6 +166,7 @@ EVILBANE_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil stella
 EVILSTELLA_SPRITE_PATH = "assets/sprites/evil_stella.png"
 EVILSTELLA_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILSTELLA_SPAWN_SOUND_PATH = "assets/sounds/522132__amnesia12__evil-demonic-laugh.mp3"
 EVILSTELLA_SPEED = 90
 EVILSTELLA_LIFE = 20
 EVILSTELLA_BULLET_PATH = "assets/sprites/evil_blood.png"
@@ -174,6 +178,7 @@ EVILSTELLA_BULLET_SOUND_PATH = "assets/sounds/56271__q-k__water-gulp.wav"
 -- evil cobinou
 EVILCOBINOU_SPRITE_PATH = "assets/sprites/evil_cobinou.png"
 EVILCOBINOU_HIT_SOUND_PATH = "assets/sounds/163447__under7dude__zombie-hit.wav"
+EVILCOBINOU_SPAWN_SOUND_PATH = "assets/sounds/522132__amnesia12__evil-demonic-laugh.mp3"
 EVILCOBINOU_SPEED = 75
 EVILCOBINOU_LIFE = 30
 EVILCOBINOU_BULLET_PATH = "assets/sprites/evil_blood.png"
