@@ -14,7 +14,7 @@ function addBoss(enemiesNum)
     for i=1, enemiesNum do
         local enemy = {}
         enemy.x = GAME_SPRITE_SIZE*2 -- center
-        enemy.y = GAME_SPRITE_SIZE*2-- center
+        enemy.y = GAME_SPRITE_SIZE*2.25-- center
         table.insert(enemies, enemy)
     end
     return enemies

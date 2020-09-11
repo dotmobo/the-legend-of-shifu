@@ -118,10 +118,17 @@ function updateEnemies(layer, enemies, playerLayer)
                 if self.enemies[index]['bullets'] ~= nil then
                     self.enemies[index].bulletCurrentShootTimer = self.enemies[index].bulletCurrentShootTimer + dt
                     if self.enemies[index].bulletCurrentShootTimer > self.enemies[index].bulletShootTimer then
-                        if playerLayer.player.y <  self.enemies[index].y then
-                            local bullet = createBullet(self.enemies[index], "up")
+                        if self.enemies[index].isBoss == true then
+                            createBullet(self.enemies[index], "up")
+                            createBullet(self.enemies[index], "down")
+                            createBullet(self.enemies[index], "left")
+                            createBullet(self.enemies[index], "right")
                         else
-                            local bullet = createBullet(self.enemies[index], "down")
+                            if playerLayer.player.y <  self.enemies[index].y then
+                                local bullet = createBullet(self.enemies[index], "up")
+                            else
+                                local bullet = createBullet(self.enemies[index], "down")
+                            end
                         end
                         self.enemies[index].bulletCurrentShootTimer = 0
                     end
