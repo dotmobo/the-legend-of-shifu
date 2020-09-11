@@ -12,8 +12,9 @@ function Win:draw()
 	love.graphics.setColor(255, 255, 255, 1)
 	love.graphics.draw(icon, WIN_WIDTH/3, WIN_HEIGHT/3)
 	love.graphics.printf({{255,255,255,1}, 'Victory ! Score: '..Score},0,WIN_HEIGHT/3,WIN_WIDTH,"center")
-	love.graphics.printf({{255,255,255,1}, "Press Enter or Start to retry"},0,WIN_HEIGHT/3+64,WIN_WIDTH,"center")
-	love.graphics.printf({{255,255,255,1}, "Press Escape or Select to quit"},0,WIN_HEIGHT/3+128,WIN_WIDTH,"center")
+	love.graphics.printf({{255,255,255,1}, 'Thanks for playing !'},0,WIN_HEIGHT/3+64,WIN_WIDTH,"center")
+	love.graphics.printf({{255,255,255,1}, "Press Enter or Start to retry"},0,WIN_HEIGHT/3+128,WIN_WIDTH,"center")
+	love.graphics.printf({{255,255,255,1}, "Press Escape or Select to quit"},0,WIN_HEIGHT/3+192,WIN_WIDTH,"center")
 end
 
 function Win:keyreleased(key, code)
