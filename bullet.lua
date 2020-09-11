@@ -12,6 +12,7 @@ function bulletCollide(cols, len, bullets, index, bullet, otherType)
                 cols[i].other.hitted = true
                 cols[i].other.hittedTime = 1
                 cols[i].other.life = cols[i].other.life - 1
+                cols[i].other.hitSound:setVolume(GAME_EFFECTS_VOLUME)
                 cols[i].other.hitSound:play()
             end
             World:remove(bullet)
@@ -28,6 +29,7 @@ function moveBullet(bullets, index, bullet, goalX, goalY, otherType)
 end
 
 function createBullet(enemyOrPlayer, move)
+    enemyOrPlayer.bulletSound:setVolume(GAME_EFFECTS_VOLUME)
     enemyOrPlayer.bulletSound:play()
     local bullet = {}
     bullet.width = enemyOrPlayer.bulletWidth

@@ -36,6 +36,7 @@ function playerCollide(cols, len)
 	-- 		cols[i].item.hitted = true
 	-- 		cols[i].item.hittedTime = 1
 	-- 		cols[i].item.life = cols[i].item.life - 1
+	--		cols[i].item.hitSound:setVolume(GAME_EFFECTS_VOLUME)
 	-- 		cols[i].item.hitSound:play()
 	-- 	end
 	-- end

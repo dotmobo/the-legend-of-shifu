@@ -36,6 +36,7 @@ function loadEnemies(layer, enemies)
         layer.enemies[index].move = layer.enemies[index].moves.stop
         World:add(layer.enemies[index], layer.enemies[index].x, layer.enemies[index].y, layer.enemies[index].width, layer.enemies[index].height)
         if layer.enemies[index].isBoss == true then
+            layer.enemies[index].spawnSound:setVolume(GAME_EFFECTS_VOLUME)
             layer.enemies[index].spawnSound:play()
         end
     end
@@ -61,6 +62,7 @@ function updateEnemies(layer, enemies, playerLayer)
                 cols[i].other.hitted = true
 				cols[i].other.hittedTime = 1
                 cols[i].other.life = cols[i].other.life - 1
+                cols[i].other.hitSound:setVolume(GAME_EFFECTS_VOLUME)
                 cols[i].other.hitSound:play()
             end
 		end
