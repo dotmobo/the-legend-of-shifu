@@ -21,7 +21,7 @@ end
 
 function Menu:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Game)
+        Gamestate.switch(Transition)
 	end
 	if key == "escape" then
 	   love.event.quit()
@@ -30,7 +30,7 @@ end
 
 function Menu:update(dt)
 	if Joystick and Joystick:isGamepadDown('start') then
-		Gamestate.switch(Game)
+		Gamestate.switch(Transition)
 	end
 	if Joystick and Joystick:isGamepadDown('back') then
 		love.event.quit()

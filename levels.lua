@@ -24,16 +24,16 @@ function getLevelEnemies()
     local enemies = {}
     local enemiesNum = 0
     if Level == 1 then
-        enemiesNum = 2
+        enemiesNum = math.random(2, 4)
         enemies = addEnemies(enemiesNum)
     elseif Level == 2 then
-        enemiesNum = 3
+        enemiesNum = math.random(3, 5)
         enemies = addEnemies(enemiesNum)
     elseif Level == 3 then
-        enemiesNum = 4
+        enemiesNum = math.random(4, 6)
         enemies = addEnemies(enemiesNum)
     elseif Level == 4 then
-        enemiesNum = 5
+        enemiesNum = math.random(5, 7)
         enemies = addEnemies(enemiesNum)
     elseif Level == 5 then
         enemiesNum = 1

@@ -21,7 +21,7 @@ function Win:keyreleased(key, code)
 		WorldType = 1
 		Score = 0
 		Level = 1
-        Gamestate.switch(Game)
+        Gamestate.switch(Transition)
 	end
 	if key == "escape" then
 	   love.event.quit()
@@ -33,7 +33,7 @@ function Win:update(dt)
 		WorldType = 1
 		Score = 0
 		Level = 1
-		Gamestate.switch(Game)
+		Gamestate.switch(Transition)
 	end
 	if Joystick and Joystick:isGamepadDown('back') then
 		love.event.quit()
