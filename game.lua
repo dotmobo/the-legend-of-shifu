@@ -53,7 +53,17 @@ function Game:draw()
 	end
 	-- hud
 	love.graphics.print({{255,255,255,1}, 'score: '..math.floor(Score)},0,0)
-	love.graphics.print({{255,255,255,1}, 'lifes: '..math.floor(playerLayer.player.life)},0,WIN_HEIGHT-GAME_FONT_SIZE)
+	love.graphics.print({{255,255,255,1}, 'health: '},0,WIN_HEIGHT-GAME_FONT_SIZE)
+	local lifeX = 68
+	local lifeWidth = 10
+	love.graphics.setColor(208, 0, 0, 1)
+	for i=1, playerLayer.player.life do
+		love.graphics.rectangle("fill", lifeX, WIN_HEIGHT-lifeWidth, lifeWidth, lifeWidth )
+		lifeX = lifeX + lifeWidth
+	end
+	love.graphics.setColor(255, 255, 255, 1)
+
+
 	love.graphics.print({{255,255,255,1}, "level: "..Level},WIN_WIDTH-GAME_FONT_SIZE*5,0)
-	love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-GAME_FONT_SIZE*8,WIN_HEIGHT-GAME_FONT_SIZE)
+	-- love.graphics.print({{255,255,255,1}, 'weapon: '..playerLayer.player.weapon},WIN_WIDTH-GAME_FONT_SIZE*8,WIN_HEIGHT-GAME_FONT_SIZE)
 end
