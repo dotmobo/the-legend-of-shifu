@@ -24,6 +24,12 @@ function getRandomEnemy(x, y)
     -- boss
     elseif MapType == 4 and Level == 5 then
         randomType = 12
+    -- volcano map
+    elseif MapType == 5 and Level ~= 5 then
+        randomType = math.random(14, 15)
+    -- boss
+    elseif MapType == 5 and Level == 5 then
+        randomType = 9
     end
     -- return the right monster
     if randomType == 1 then
@@ -52,6 +58,10 @@ function getRandomEnemy(x, y)
         return getEvilCobinou(x, y)
     elseif randomType == 13 then
         return getEvilStella(x, y)
+    elseif randomType == 14 then
+        return getPhoenix(x, y)
+    elseif randomType == 15 then
+        return getTrex(x, y)
     end
 end
 
@@ -340,6 +350,78 @@ function getYeti(x, y)
     enemy.bulletSpeed = YETI_BULLET_SPEED
     enemy.bulletWidth = YETI_BULLET_WIDTH
     enemy.bulletHeight = YETI_BULLET_HEIGHT
+    return enemy
+end
+
+function getPhoenix(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(PHOENIX_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-1'), 0.5),
+        die = Anim8.newAnimation(enemy.grid('1-2','2-2'), 0.25)
+    }
+    enemy.width = GAME_SPRITE_SIZE
+    enemy.height = GAME_SPRITE_SIZE
+    enemy.speed = PHOENIX_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(PHOENIX_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = PHOENIX_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(PHOENIX_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(PHOENIX_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = PHOENIX_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = PHOENIX_BULLET_SPEED
+    enemy.bulletWidth = PHOENIX_BULLET_WIDTH
+    enemy.bulletHeight = PHOENIX_BULLET_HEIGHT
+    return enemy
+end
+
+function getTrex(x, y)
+    local enemy = {}
+    enemy.isEnemy = true
+    enemy.sprite = love.graphics.newImage(TREX_SPRITE_PATH)
+    enemy.grid = Anim8.newGrid(GAME_SPRITE_SIZE, GAME_SPRITE_SIZE, enemy.sprite:getWidth(), enemy.sprite:getHeight())
+    enemy.animations = {
+        stop = Anim8.newAnimation(enemy.grid('1-2','1-1'), 0.5),
+        die = Anim8.newAnimation(enemy.grid('1-2','2-2'), 0.25)
+    }
+    enemy.width = GAME_SPRITE_SIZE
+    enemy.height = GAME_SPRITE_SIZE
+    enemy.speed = TREX_SPEED
+    enemy.directionX = 1
+    enemy.hitSound = love.audio.newSource(TREX_HIT_SOUND_PATH, "static")
+    enemy.hitted = false
+    enemy.hittedTime = 0
+    enemy.moves = {
+        stop = "stop",
+        run = "run",
+    }
+    enemy.life = TREX_LIFE
+    enemy.dead = false
+    enemy.removed = false
+    enemy.x = x
+    enemy.y = y
+    enemy.bullets = {}
+	enemy.bulletSprite = love.graphics.newImage(TREX_BULLET_PATH)
+    enemy.bulletSound = love.audio.newSource(TREX_BULLET_SOUND_PATH, "static")
+    enemy.bulletShootTimer = TREX_BULLET_TIMER
+    enemy.bulletCurrentShootTimer = 0
+    enemy.bulletSpeed = TREX_BULLET_SPEED
+    enemy.bulletWidth = TREX_BULLET_WIDTH
+    enemy.bulletHeight = TREX_BULLET_HEIGHT
     return enemy
 end
 

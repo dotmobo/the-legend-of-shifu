@@ -13,6 +13,9 @@ function Transition:enter()
 	elseif WorldType == 4 then
 		background = love.graphics.newImage(GAME_WORLD4_IMG_PATH)
 		levelName = Level ~= 5 and 'The Mountains Of Madness' or 'Kill The Evil Cobalt !'
+	elseif WorldType == 5 then
+		background = love.graphics.newImage(GAME_WORLD5_IMG_PATH)
+		levelName = Level ~= 5 and 'The Eyjafjallajökull Volcano' or 'Kill The Evil Choco !'
 	else
 		background = love.graphics.newImage(GAME_WORLD1_IMG_PATH)
 		levelName = Level ~= 5 and 'The Darkest Dungeon' or 'Kill The Evil Crousti !'

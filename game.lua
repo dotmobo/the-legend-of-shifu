@@ -20,6 +20,9 @@ function Game:enter()
 	elseif WorldType == 4 then
 		Map = Sti(GAME_WORLD4_PATH, {GAME_COLLISION_MODE})
 		MapType = 4
+	elseif WorldType == 5 then
+		Map = Sti(GAME_WORLD5_PATH, {GAME_COLLISION_MODE})
+		MapType = 5
 	end
 	Map:bump_init(World)
 	-- adds custom layers

@@ -168,6 +168,10 @@ function updateEnemies(layer, enemies, playerLayer)
                         Level = 1
                         Gamestate.switch(Transition)
                     elseif Level == 5 and WorldType == 4 then
+                        WorldType = 5
+                        Level = 1
+                        Gamestate.switch(Transition)
+                    elseif Level == 5 and WorldType == 5 then
                         Gamestate.switch(Win)
                     else
                         Level = Level + 1
