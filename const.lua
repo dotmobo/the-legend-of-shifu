@@ -34,7 +34,7 @@ PLAYER_SPRITE_PATH = "assets/sprites/shifu.png"
 PLAYER_HIT_SOUND_PATH = "assets/sounds/262313__steffcaffrey__cat-meow2.wav"
 PLAYER_OBJECT_NAME = "player"
 PLAYER_SPEED = 110
-PLAYER_LIFE = 20
+PLAYER_LIFE = 10
 PLAYER_WEAPON_PATH = "assets/sprites/pee.png"
 -- bullet
 BULLET_TIMER = 0.4
